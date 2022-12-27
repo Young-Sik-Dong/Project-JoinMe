@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Mebmer {
+public class Member {
 	@Id
 	private String memberId;
 	private String memberPw;
