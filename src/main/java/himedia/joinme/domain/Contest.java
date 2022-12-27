@@ -13,12 +13,12 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 public class Contest{
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long index;
 	private String postNo;
 	private String postTitle;
 	private String postWriter;
 	private String postDate;
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long index;
 	private String contestField;
 	private String companyName;
 	private String targetName;

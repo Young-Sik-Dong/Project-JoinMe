@@ -13,12 +13,12 @@ import lombok.Setter;
 @Getter @Setter
 @NoArgsConstructor
 public class Community {
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long index;
 	private String postNo;
 	private String postTitle;
 	private String postWriter;
 	private String postDate;
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long index;
 	private String category;
 	private String text;
 	private String joinLink;
