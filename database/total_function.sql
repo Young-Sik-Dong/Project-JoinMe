@@ -29,7 +29,7 @@ create table if not exists member(
     member_password char(40) not null,
     member_name varchar(40) not null,
     nickname char(20) unique not null,
-    registration_date date not null,
+    registration_date date not null default now(),
     modify_date date not null default '9999-01-01',
     primary key(member_id)
 );
@@ -49,8 +49,8 @@ create table if not exists contest(
     start_date date not null,
     end_date date not null,
     contest_link varchar(100),
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     primary key(contest_no),
     foreign key(post_no) references post(post_no)
@@ -70,8 +70,8 @@ create table if not exists recruitment(
     region varchar(4) not null,
     contents varchar(400) not null,
     join_link char(100),
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     primary key(recruitment_no),
     foreign key(post_no) references post(post_no)
@@ -91,8 +91,8 @@ create table if not exists community(
     category varchar(8) not null,
     title varchar(60) not null,
     contents varchar(400) not null,
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     primary key(community_no),
     foreign key(post_no) references post(post_no)
@@ -107,8 +107,8 @@ create table if not exists community_reply (
 	community_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     foreign key(community_no) references community(community_no)
     on update cascade,
@@ -122,8 +122,8 @@ create table if not exists contest_reply (
 	contest_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     foreign key(contest_no) references contest(contest_no)
     on update cascade,
@@ -137,8 +137,8 @@ create table if not exists recruitment_reply (
 	recruitment_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,
-    registration_date date not null,
-    modify_date date not null,
+    registration_date date not null default now(),
+    modify_date date not null default '9999-01-01',
     
     foreign key(recruitment_no) references recruitment(recruitment_no)
     on update cascade,
