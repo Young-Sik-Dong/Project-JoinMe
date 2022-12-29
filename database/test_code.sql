@@ -1,6 +1,8 @@
 use joinme;
 
-insert into member values('id1','pw1','홍길동','홍',now());
+insert into member(member_id, member_password, member_name, nickname) values('id1','pw1','홍길동','홍');
+
+select * from member;
 
 update member
 set member_password = 'pw2',
