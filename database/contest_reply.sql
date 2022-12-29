@@ -1,6 +1,6 @@
 drop table if exists contest_reply;
 
-create table contest_reply (
+create table if not exists contest_reply (
 	contest_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,

@@ -1,6 +1,6 @@
 drop table if exists recruitment_reply;
 
-create table recruitment_reply (
+create table if not exists recruitment_reply (
 	recruitment_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,

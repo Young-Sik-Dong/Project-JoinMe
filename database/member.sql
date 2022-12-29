@@ -1,6 +1,6 @@
 drop table if exists member;
 
-create table member(
+create table if not exists member(
 	member_id varchar(40) not null,
     member_password char(40) not null,
     member_name varchar(40) not null,

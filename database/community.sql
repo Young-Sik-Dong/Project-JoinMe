@@ -1,6 +1,6 @@
 drop table if exists community;
 
-create table community(
+create table if not exists community(
 	community_no int not null auto_increment,
     post_no varchar(4) not null,
     member_id varchar(40) not null,

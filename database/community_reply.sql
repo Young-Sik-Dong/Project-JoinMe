@@ -1,6 +1,6 @@
 drop table if exists community_reply;
 
-create table community_reply (
+create table if not exists community_reply (
 	community_no int not null,
     member_id varchar(40) not null,
     contents char(100) not null,
