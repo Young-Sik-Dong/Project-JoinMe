@@ -12,9 +12,9 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Contest{
+public class Contest {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long index;
+	private int contestNo;
 	private String postNo;
 	private String postTitle;
 	private String postWriter;

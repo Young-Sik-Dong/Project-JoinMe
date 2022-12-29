@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Community {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long index;
+	private int communityNo;
 	private String postNo;
 	private String postTitle;
 	private String postWriter;

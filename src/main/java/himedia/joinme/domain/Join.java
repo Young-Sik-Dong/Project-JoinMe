@@ -14,12 +14,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Join {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long index;
+	private int recruitmentNo;
 	private String postNo;
 	private String postTitle;
 	private String postWriter;
 	private String postDate;
-	private Long contestIndex;
+	private int contestIndex;
 	private String region;
 	private String text;
 	private String joinLink;
