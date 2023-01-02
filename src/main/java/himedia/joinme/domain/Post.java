@@ -13,24 +13,25 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-public class Member {
+public class Post {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column (name = "post_no")
+	private int postNo;
+	@Column (name = "post_name")
+	private String postName;
 	@Column (name = "member_no")
 	private int memberNo;
-	@Column (name = "member_id")
-	private String memberId;
-	@Column (name = "member_password")
-	private String memberPassword;
-	@Column (name = "nickname")
-	private String nickname;
+	private String title;
+	private String textbox;
 	@Column (name = "registration_date")
-	private String registrationDate;
+	private String regiDate;
 	@Column (name = "modify_date")
 	private String modifyDate;
 	
-	public Member(String memberId, String memberPassword, String nickname) {
-		this.memberId = memberId;
-		this.memberPassword = memberPassword;
-		this.nickname = nickname;
+	public Post(String postName, int memberNo, String title, String textbox) {
+		this.postName = postName;
+		this.memberNo = memberNo;
+		this.title = title;
+		this.textbox = textbox;
 	}
 }
