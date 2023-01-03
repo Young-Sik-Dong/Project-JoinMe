@@ -28,5 +28,3 @@ insert into community
 	values	(7, 'STUDY'),
 			(8, 'STUDY'),
             (9, 'STUDY'); 
-            
-            

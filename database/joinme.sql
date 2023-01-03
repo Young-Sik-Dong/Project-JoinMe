@@ -20,8 +20,8 @@ create table if not exists member(
 
 create table if not exists post(
 	post_no int not null auto_increment,
+	member_no int not null,
     post_name varchar(20) not null,
-    member_no int not null,
     title varchar(60) not null,
     textbox varchar(600) not null,
     registration_date date default (current_date),
@@ -78,7 +78,7 @@ create table if not exists reply (
     post_no int not null,
 	member_no int not null,
     textbox char(100) not null,
-    registration_date date not null default (current_date),
+    registration_date date default (current_date),
     modify_date date default '9999-01-01',
     
 	primary key(reply_no),
