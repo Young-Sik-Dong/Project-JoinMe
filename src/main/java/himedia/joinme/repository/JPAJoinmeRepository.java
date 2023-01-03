@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import himedia.joinme.domain.Community;
@@ -64,6 +65,13 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	public Optional<Post> findByPostNo(int postNo) {
 		Post post = em.find(Post.class, postNo);
 		return Optional.ofNullable(post);
+	}
+	
+	@Override
+	public List<Post> findAllPostName(String postName) {
+		return em.createQuery("select m from Post m where post_name=:postName", Post.class)
+				.setParameter("postName", postName)
+				.getResultList();
 	}
 	
 	@Override
@@ -195,22 +203,22 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.clear();
 	}
 
-	@Override
-	public List<Post> findAllPostName(String postName) {
-		return em.createQuery("select m from Post m where post_name=:postName", Post.class)
-				.setParameter("postName", postName)
-				.getResultList();
-	}
-
+	@Modifying
 	@Override
 	public void deleteMember(int memberNo) {
-		// TODO Auto-generated method stub
+		em.createQuery("delete from Member m where member_no=:memberNo")
+			.setParameter("memberNo", memberNo)
+			.executeUpdate();
 		
+		em.clear();
 	}
 
 	@Override
 	public void deletePost(int postNo) {
-		// TODO Auto-generated method stub
+		em.createQuery("delete from Post m where post_no=:postNo")
+		.setParameter("postNo", postNo)
+		.executeUpdate();
 		
+		em.clear();
 	}
 }

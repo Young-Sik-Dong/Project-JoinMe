@@ -103,6 +103,13 @@ class JPAJoinmeRepositoryTest {
 	}
 	
 	@Test
+	void findAllPostName() {
+		List<Post> findPost = repository.findAllPostName("COMMUNITY");
+		
+		assertThat(findPost.size()).isEqualTo(3);
+	}
+	
+	@Test
 	void findByContest() {
 		Contest contest = repository.findByContest(1).get();
 		
@@ -178,13 +185,34 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updateCommunity() {
+		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Post post = repository.postSave(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Community community = repository.communitySave(new Community(post.getPostNo(), "커뮤니티1"));
+		Community updateCommunity = new Community("커뮤니티2");
 		
+		repository.updateCommunity(post.getPostNo(), updateCommunity);
+		community = repository.findByCommunity(community.getPostNo()).get();
+		
+		assertThat(community.getCategory()).isEqualTo(updateCommunity.getCategory());
 	}
 	
 	@Test
-	void findAllPostName() {
-		List<Post> findPost = repository.findAllPostName("COMMUNITY");
+	void deleteMember() {
+		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
 		
-		assertThat(findPost.size()).isEqualTo(3);
+		repository.deleteMember(member.getMemberNo());
+		Optional<Member> find = repository.findByMemberNo(member.getMemberNo());
+		
+		assertThat(find).isEmpty();
+	}
+	
+	@Test
+	void deletePost() {
+		Post post = repository.postSave(new Post("JOIN", 1, "제목1", "본문1"));
+		
+		repository.deletePost(post.getPostNo());
+		Optional<Post> find = repository.findByPostNo(post.getPostNo());
+		
+		assertThat(find).isEmpty();
 	}
 }
