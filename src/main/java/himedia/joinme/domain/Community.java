@@ -18,4 +18,8 @@ public class Community {
 	@Column (name = "post_no")
 	private int postNo;
 	private String category;
+	
+	public Community(String category) {
+		this.category = category;
+	}
 }

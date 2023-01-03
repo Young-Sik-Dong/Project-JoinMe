@@ -34,4 +34,9 @@ public class Post {
 		this.title = title;
 		this.textbox = textbox;
 	}
+
+	public Post(String title, String textbox) {
+		this.title = title;
+		this.textbox = textbox;
+	}
 }

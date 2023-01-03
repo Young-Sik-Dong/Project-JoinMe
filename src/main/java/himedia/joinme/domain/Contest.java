@@ -21,13 +21,15 @@ public class Contest {
 	private int contestNo;
 	@Column (name = "company_name")
 	private String companyName;
-
+	//@ElementCollection(targetClass=String.class)
+	//private List<String> field = new ArrayList<>();
+	@Column (name = "field")
 	private String field;
 	@Column (name = "target_name")
 	private String targetName;
 	@Column (name = "host_name")
 	private String hostName;
-
+	@Column (name = "reward")
 	private String reward;
 	@Column (name = "start_date")
 	private String startDate;
@@ -35,4 +37,16 @@ public class Contest {
 	private String endDate;
 	@Column (name = "contest_link")
 	private String contestLink;
+	
+	public Contest(String companyName, String field, String targetName, String hostName, String reward,
+			String startDate, String endDate, String contestLink) {
+		this.companyName = companyName;
+		this.field = field;
+		this.targetName = targetName;
+		this.hostName = hostName;
+		this.reward = reward;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.contestLink = contestLink;
+	}
 }
