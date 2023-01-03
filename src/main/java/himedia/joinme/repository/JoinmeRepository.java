@@ -11,11 +11,11 @@ import himedia.joinme.domain.Post;
 
 public interface JoinmeRepository {
 
-	Member memberSave(Member member);
-	Post postSave(Post post);
-	Contest contestSave(Contest contest);
-	Join joinSave(Join join);
-	Community communitySave(Community community);
+	Member saveMember(Member member);
+	Post savePost(Post post);
+	Contest saveContest(Contest contest);
+	Join saveJoin(Join join);
+	Community saveCommunity(Community community);
 	
 	Optional<Member> findByMemberNo(int memberNo);
 	Optional<Member> findByMemberId(String memberId);

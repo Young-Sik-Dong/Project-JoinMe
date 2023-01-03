@@ -26,31 +26,31 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	private final EntityManager em;
 	
 	@Override
-	public Member memberSave(Member member) {
+	public Member saveMember(Member member) {
 		em.persist(member);
 		return member;
 	}
 
 	@Override
-	public Post postSave(Post post) {
+	public Post savePost(Post post) {
 		em.persist(post);
 		return post;
 	}
 
 	@Override
-	public Contest contestSave(Contest contest) {
+	public Contest saveContest(Contest contest) {
 		em.persist(contest);
 		return contest;
 	}
 
 	@Override
-	public Join joinSave(Join join) {
+	public Join saveJoin(Join join) {
 		em.persist(join);
 		return join;
 	}
 
 	@Override
-	public Community communitySave(Community community) {
+	public Community saveCommunity(Community community) {
 		em.persist(community);
 		return community;
 	}

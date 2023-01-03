@@ -30,7 +30,7 @@ class JPAJoinmeRepositoryTest {
 	void memberSave() {
 		Member member1 = new Member("id4", "1234", "하루");
 		
-		Member savedItem = repository.memberSave(member1);
+		Member savedItem = repository.saveMember(member1);
 		
 		assertThat(savedItem.getMemberId()).isEqualTo(member1.getMemberId());
 	}
@@ -38,17 +38,17 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void postSave() {
 		Post post1 = new Post("COMMUNITY", 1, "제목1", "본문1");
-		Post savedPost = repository.postSave(post1);
+		Post savedPost = repository.savePost(post1);
 		
 		assertThat(savedPost.getPostNo()).isEqualTo(post1.getPostNo());
 	}
 	
 	@Test
 	void contestSave() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
-		Contest contest = repository.contestSave(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field",
+		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field",
 												"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
 		
 		assertThat(contest.getPostNo()).isEqualTo(post.getPostNo());
@@ -56,27 +56,27 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void joinSave() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
-		Join join = repository.joinSave(new Join(post.getPostNo(), post.getPostNo(), "region", "link"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), post.getPostNo(), "region", "link"));
 
 		assertThat(join.getPostNo()).isEqualTo(post.getPostNo());
 	}
 	
 	@Test
 	void communitySave() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
-		Community community = repository.communitySave(new Community(post.getPostNo(), "cate1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "cate1"));
 		
 		assertThat(community.getPostNo()).isEqualTo(post.getPostNo());
 	}
 	
 	@Test
 	void findByMemberNo() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		
 		Optional<Member> findMember = repository.findByMemberNo(member.getMemberNo());
 		
@@ -85,7 +85,7 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void findByMemberId() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		
 		Optional<Member> findMember = repository.findByMemberId(member.getMemberId());
 		
@@ -94,8 +94,8 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void findByPostNo() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
 		Optional<Post> findPost = repository.findByPostNo(post.getPostNo());
 		
@@ -132,7 +132,7 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updateMember() {
-		Member member1 = repository.memberSave(new Member("id5", "1234", "하루"));
+		Member member1 = repository.saveMember(new Member("id5", "1234", "하루"));
 		Member member2 = new Member("id6", "1357", "하나");
 
 		repository.updateMember(member1.getMemberNo(), member2);
@@ -143,8 +143,8 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updatePost() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		Post updatePost = new Post("제목2", "본문2");
 		
 		repository.updatePost(post.getPostNo(), updatePost);
@@ -155,10 +155,10 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updateContest() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
 		
-		Contest contest = repository.contestSave(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
+		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
 				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
 		
 		Contest updateContest = new Contest("company2", "field2", "target2", 
@@ -172,9 +172,9 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updateJoin() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
-		Join join = repository.joinSave(new Join(post.getPostNo(), 1, "region1", "link1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "region1", "link1"));
 		Join updateJoin = new Join("region2", "link2");
 		
 		repository.updateJoin(post.getPostNo(), updateJoin);
@@ -185,9 +185,9 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void updateCommunity() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
-		Community community = repository.communitySave(new Community(post.getPostNo(), "커뮤니티1"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "커뮤니티1"));
 		Community updateCommunity = new Community("커뮤니티2");
 		
 		repository.updateCommunity(post.getPostNo(), updateCommunity);
@@ -198,7 +198,7 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void deleteMember() {
-		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		
 		repository.deleteMember(member.getMemberNo());
 		Optional<Member> find = repository.findByMemberNo(member.getMemberNo());
@@ -208,7 +208,7 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void deletePost() {
-		Post post = repository.postSave(new Post("JOIN", 1, "제목1", "본문1"));
+		Post post = repository.savePost(new Post("JOIN", 1, "제목1", "본문1"));
 		
 		repository.deletePost(post.getPostNo());
 		Optional<Post> find = repository.findByPostNo(post.getPostNo());
