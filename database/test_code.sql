@@ -15,6 +15,9 @@ nickname = "nick5",
 modify_date = current_date
 where member_id = 'id4';
 
+delete from member
+where member_id like 'id4';
+
 select * from post;
 select * from recruitment;
 select * from community;
