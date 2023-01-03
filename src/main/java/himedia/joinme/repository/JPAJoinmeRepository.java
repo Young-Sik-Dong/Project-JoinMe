@@ -69,8 +69,32 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	@Override
 	public Optional<Member> findByMemberId(String memberId) {
 		List<Member> result =  em.createQuery("select m from Member m where m.memberId=:member_id", Member.class)
-								.setParameter("member_id", memberId)
+				.setParameter("member_id", memberId)
 								.getResultList();
+		return result.stream().findAny();
+	}
+	
+	@Override
+	public Optional<Contest> findByContest(int postNo) {
+		List<Contest> result =  em.createQuery("select c from Contest c where c.postNo=:post_no", Contest.class)
+				.setParameter("post_no", postNo)
+				.getResultList();
+		return result.stream().findAny();
+	}
+
+	@Override
+	public Optional<Join> findByJoin(int postNo) {
+		List<Join> result =  em.createQuery("select j from Join j where j.postNo=:post_no", Join.class)
+				.setParameter("post_no", postNo)
+				.getResultList();
+		return result.stream().findAny();
+	}
+
+	@Override
+	public Optional<Community> findByCommunity(int postNo) {
+		List<Community> result =  em.createQuery("select c from Community c where c.postNo=:post_no", Community.class)
+				.setParameter("post_no", postNo)
+				.getResultList();
 		return result.stream().findAny();
 	}
 	
@@ -102,7 +126,7 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		
 		int result = em.createQuery(sql)
 				.setParameter("title", updatePost.getTitle())
-				.setParameter("nickname", updatePost.getTextbox())
+				.setParameter("textbox", updatePost.getTextbox())
 				.setParameter("postNo", postNo)
 				.executeUpdate();
 				
@@ -112,12 +136,12 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 
 	@Override
 	public void updateContest(int postNo, Contest updateContest) {
-		String sql = "update Post p "
+		String sql = "update Contest c "
 				+ "set company_name=:companyName, "
 				+ "field=:field, "
 				+ "target_name=:targetName, "
 				+ "host_name=:hostName, "
-				+ "reword=:reword, "
+				+ "reward=:reward, "
 				+ "start_date=:startDate, "
 				+ "end_date=:endDate, "
 				+ "contest_link=:contestLink "
@@ -128,7 +152,7 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 				.setParameter("field", updateContest.getField())
 				.setParameter("targetName", updateContest.getTargetName())
 				.setParameter("hostName", updateContest.getHostName())
-				.setParameter("reword", updateContest.getReward())
+				.setParameter("reward", updateContest.getReward())
 				.setParameter("startDate", updateContest.getStartDate())
 				.setParameter("endDate", updateContest.getEndDate())
 				.setParameter("contestLink", updateContest.getContestLink())
@@ -141,9 +165,9 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 
 	@Override
 	public void updateJoin(int postNo, Join updateJoin) {
-		String sql = "update Post p "
+		String sql = "update Join j "
 				+ "set region=:region, "
-				+ "join_link=:joinLink, "
+				+ "join_link=:joinLink "
 				+ "where post_no=:postNo";
 		
 		int result = em.createQuery(sql)
@@ -158,7 +182,7 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 
 	@Override
 	public void updateCommunity(int postNo, Community updateCommunity) {
-		String sql = "update Post p "
+		String sql = "update Community c "
 				+ "set category=:category "
 				+ "where post_no=:postNo";
 		
@@ -169,5 +193,24 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		
 		log.info("result >> {}", result);
 		em.clear();
+	}
+
+	@Override
+	public List<Post> findAllPostName(String postName) {
+		return em.createQuery("select m from Post m where post_name=:postName", Post.class)
+				.setParameter("postName", postName)
+				.getResultList();
+	}
+
+	@Override
+	public void deleteMember(int memberNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deletePost(int postNo) {
+		// TODO Auto-generated method stub
+		
 	}
 }

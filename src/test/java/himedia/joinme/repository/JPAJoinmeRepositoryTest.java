@@ -2,6 +2,7 @@ package himedia.joinme.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -16,21 +17,18 @@ import himedia.joinme.domain.Contest;
 import himedia.joinme.domain.Join;
 import himedia.joinme.domain.Member;
 import himedia.joinme.domain.Post;
-import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Transactional
-@Slf4j
+//@Slf4j
 class JPAJoinmeRepositoryTest {
 
 	@Autowired JPAJoinmeRepository repository;
 	@Autowired EntityManager em;
 	
-	
-	
 	@Test
 	void memberSave() {
-		Member member1 = new Member("id1", "1234", "하루");
+		Member member1 = new Member("id4", "1234", "하루");
 		
 		Member savedItem = repository.memberSave(member1);
 		
@@ -39,8 +37,7 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void postSave() {
-		Post post1 = new Post("커뮤니티", 1, "제목1", "본문1");
-		
+		Post post1 = new Post("COMMUNITY", 1, "제목1", "본문1");
 		Post savedPost = repository.postSave(post1);
 		
 		assertThat(savedPost.getPostNo()).isEqualTo(post1.getPostNo());
@@ -49,9 +46,9 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void contestSave() {
 		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("커뮤니티", member.getMemberNo(), "제목1", "본문1"));
+		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
-		Contest contest = repository.contestSave(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
+		Contest contest = repository.contestSave(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field",
 												"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
 		
 		assertThat(contest.getPostNo()).isEqualTo(post.getPostNo());
@@ -60,9 +57,9 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void joinSave() {
 		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("커뮤니티", member.getMemberNo(), "제목1", "본문1"));
+		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
-		Join join = repository.joinSave(new Join(post.getPostNo(), post.getPostNo(), member.getMemberNo(), "region", "link"));
+		Join join = repository.joinSave(new Join(post.getPostNo(), post.getPostNo(), "region", "link"));
 
 		assertThat(join.getPostNo()).isEqualTo(post.getPostNo());
 	}
@@ -70,7 +67,7 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void communitySave() {
 		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("커뮤니티", member.getMemberNo(), "제목1", "본문1"));
+		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
 		Community community = repository.communitySave(new Community(post.getPostNo(), "cate1"));
 		
@@ -98,26 +95,96 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void findByPostNo() {
 		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
-		Post post = repository.postSave(new Post("커뮤니티", member.getMemberNo(), "제목1", "본문1"));
+		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
 		
 		Optional<Post> findPost = repository.findByPostNo(post.getPostNo());
-		log.info("post_no ==> {}" , findPost);
 		
 		assertThat(findPost).isNotNull();
+	}
+	
+	@Test
+	void findByContest() {
+		Contest contest = repository.findByContest(1).get();
+		
+		assertThat(contest).isNotNull();
+	}
+	
+	@Test
+	void findByJoin() {
+		Join join = repository.findByJoin(4).get();
+		
+		assertThat(join).isNotNull();
+	}
+	
+	@Test
+	void findByCommunity() {
+		Community community = repository.findByCommunity(7).get();
+		
+		assertThat(community).isNotNull();
 	}
 	
 	@Test
 	void updateMember() {
 		Member member1 = repository.memberSave(new Member("id5", "1234", "하루"));
 		Member member2 = new Member("id6", "1357", "하나");
-		log.info("member1 memberPassword==> {}", member1.getMemberPassword());
-		log.info("member2 memberPassword==> {}", member2.getMemberPassword());
 
 		repository.updateMember(member1.getMemberNo(), member2);
 		member1 = repository.findByMemberNo(member1.getMemberNo()).get();
-		log.info("member1 memberPassword==> {}", member1.getMemberPassword());
-		log.info("member1 modifyDate ==> {}", member1.getModifyDate());
 		
 		assertThat(member1.getMemberPassword()).isEqualTo(member2.getMemberPassword());
+	}
+	
+	@Test
+	void updatePost() {
+		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Post post = repository.postSave(new Post("COMMUNITY", member.getMemberNo(), "제목1", "본문1"));
+		Post updatePost = new Post("제목2", "본문2");
+		
+		repository.updatePost(post.getPostNo(), updatePost);
+		post = repository.findByPostNo(post.getPostNo()).get();
+		
+		assertThat(post.getTitle()).isEqualTo(updatePost.getTitle());
+	}
+	
+	@Test
+	void updateContest() {
+		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Post post = repository.postSave(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
+		
+		Contest contest = repository.contestSave(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+		
+		Contest updateContest = new Contest("company2", "field2", "target2", 
+				"host2", "reward2", "2023-02-01", "2023-03-01", "link2");
+		
+		repository.updateContest(post.getPostNo(), updateContest);
+		contest = repository.findByContest(post.getPostNo()).get();
+		
+		assertThat(contest.getCompanyName()).isEqualTo(updateContest.getCompanyName());
+	}
+	
+	@Test
+	void updateJoin() {
+		Member member = repository.memberSave(new Member("id5", "1234", "하루"));
+		Post post = repository.postSave(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Join join = repository.joinSave(new Join(post.getPostNo(), 1, "region1", "link1"));
+		Join updateJoin = new Join("region2", "link2");
+		
+		repository.updateJoin(post.getPostNo(), updateJoin);
+		join = repository.findByJoin(join.getPostNo()).get();
+		
+		assertThat(join.getRegion()).isEqualTo(updateJoin.getRegion());
+	}
+	
+	@Test
+	void updateCommunity() {
+		
+	}
+	
+	@Test
+	void findAllPostName() {
+		List<Post> findPost = repository.findAllPostName("COMMUNITY");
+		
+		assertThat(findPost.size()).isEqualTo(3);
 	}
 }
