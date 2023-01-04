@@ -1,5 +1,6 @@
 package himedia.joinme.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -59,5 +60,9 @@ public class JoinmeService {
 			Repository.updateMember(member.getMemberNo(), member);
 		
 		return member;
+	}
+	
+	public List<Post> findAllPost(String postName) {
+		return Repository.findAllPostName(postName);
 	}
 }
