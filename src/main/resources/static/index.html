@@ -1,96 +1,101 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
-    <title>joinme</title>
 
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.104.2">
+  <title>joinme</title>
 
-    <style>
-      @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css);
-      
-		  body { 
-        font-family: 'NanumSquare', sans-serif; 
-        font-weight: 700
-      }
-      
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
 
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
+  <style>
+    @import url(https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css);
 
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
+    body {
+      font-family: 'NanumSquare', sans-serif;
+      font-weight: 700
+    }
 
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
       }
+    }
 
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    </style>
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
 
-    
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="blog.css" rel="stylesheet">
-  </head>
-  <body>
-    
-<div class="container">
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+
+
+  <!-- Custom styles for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="blog.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
-      <div class="col w-100" >
-	      <a href="" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-	      	<img src="./images/logo.png" class="img-fluid height" alt="logo">
-	        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-	      </a>
+      <div class="col">
+        <h1>
+          <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+            <img src="./images/logo.png" class="img-fluid height" alt="logo">
+          </a>
+        </h1>
+        
       </div>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">공모전</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">모집</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">커뮤니티</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">마이페이지</a></li>
+        <li><a href="/contest" class="nav-link px-2 link-secondary">공모전</a></li>
+        <li><a href="/contest" class="nav-link px-2 link-dark">모집</a></li>
+        <li><a href="/contest" class="nav-link px-2 link-dark">커뮤니티</a></li>
+        <li><a href="/contest" class="nav-link px-2 link-dark">마이페이지</a></li>
       </ul>
 
       <div class="col-md-3 text-end">
@@ -98,47 +103,48 @@
         <button type="button" class="btn btn-warning">로그인</button>
       </div>
     </header>
-</div>
-
-<main class="container">
-  <div class="p-4 p-md-3 mb-4 rounded text-bg-warning">
-    <div class="col-12 px-0">
-      <h1 class="d-flex justify-content-center">JoinMe</h1>
-      <p class="p-4 d-flex justify-content-center">공모전 팀원 모집 사이트</p>
-    </div>
   </div>
 
-  <div class="row mb-2">
-    <div class="col-md-4">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-0">공모전</h2>
-          <p class="p-4">원하는 공모전을 검색하세요!</p>
-          <a href="#" class="btn btn-warning stretched-link">공모전 페이지로 이동</a>
-        </div>
+  <main class="container">
+    <div class="p-4 p-md-3 mb-4 rounded text-bg-warning">
+      <div class="col-12 px-0">
+        <h2 class="d-flex justify-content-center p-4">JoinMe</h2>
+        <p class="p-2 d-flex justify-content-center">공모전 팀원 모집 사이트</p>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-0">모집</h2>
-          <p class="p-4">원하는 팀원을 모집하세요!</p>
-          <a href="#" class="btn btn-warning stretched-link">모집 페이지로 이동</a>
-        </div>
-      </div>
-    </div>
-        <div class="col-md-4">
-      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-        <div class="col p-4 d-flex flex-column position-static">
-          <h2 class="mb-0">커뮤니티</h2>
-          <p class="p-4">원하는 주제의 글을 써보세요!</p>
-          <a href="#" class="btn btn-warning stretched-link">커뮤니티 페이지로 이동</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
-</main>
+    <div class="row mb-2">
+      <div class="col-md-4">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h2 class="mb-0">공모전</h2>
+            <p class="p-4">원하는 공모전을 검색하세요!</p>
+            <a href="/contest" class="btn btn-warning stretched-link">공모전 페이지</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h2 class="mb-0">모집</h2>
+            <p class="p-4">원하는 팀원을 모집하세요!</p>
+            <a href="/join" class="btn btn-warning stretched-link">모집 페이지</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h2 class="mb-0">커뮤니티</h2>
+            <p class="p-4">원하는 주제의 글을 써보세요!</p>
+            <a href="/community" class="btn btn-warning stretched-link">커뮤니티 페이지</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  </body>
+  </main>
+
+</body>
+
 </html>
