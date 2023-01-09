@@ -29,7 +29,7 @@ create table if not exists post(
 	
     primary key(post_no, member_no),
 	foreign key(member_no) references member(member_no)
-    on update cascade
+    on update cascade on delete cascade
 );
 
 create table if not exists contest(
@@ -48,7 +48,7 @@ create table if not exists contest(
     foreign key(post_no) references post(post_no)
     on update cascade,
 	foreign key(contest_no) references post(post_no)
-    on update cascade
+    on update cascade on delete cascade
 );
 
 create table if not exists recruitment(
@@ -61,7 +61,7 @@ create table if not exists recruitment(
     foreign key(post_no) references post(post_no)
     on update cascade,
 	foreign key(contest_no) references contest(contest_no)
-    on update cascade
+    on update cascade on delete cascade
 );
 
 create table if not exists community(
@@ -70,7 +70,7 @@ create table if not exists community(
     
     primary key(post_no),
     foreign key(post_no) references post(post_no)
-    on update cascade
+    on update cascade on delete cascade
 );
 
 create table if not exists reply (
@@ -83,9 +83,9 @@ create table if not exists reply (
     
 	primary key(reply_no),
     foreign key(post_no) references post(post_no)
-    on update cascade,
+    on update cascade on delete cascade, 
 	foreign key(member_no) references member(member_no)
-    on update cascade
+    on update cascade on delete cascade
 );
 
 create table if not exists scarp (
@@ -93,7 +93,7 @@ create table if not exists scarp (
     member_no int not null,
     
     foreign key(post_no) references post(post_no)
-    on update cascade,
+    on update cascade on delete cascade,
     foreign key(member_no) references member(member_no)
-    on update cascade
+    on update cascade on delete cascade
 );
