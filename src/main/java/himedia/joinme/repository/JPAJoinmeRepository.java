@@ -73,7 +73,28 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		Post post = em.find(Post.class, postNo);
 		return Optional.ofNullable(post);
 	}
-	
+	@Override
+	public Optional<Member> findByMemberId(String memberId) {
+		List<Member> result =  em.createQuery("select m from Member m where m.memberId=:member_id", Member.class)
+				.setParameter("member_id", memberId)
+								.getResultList();
+		return result.stream().findAny();
+	}
+	@Override
+	public Optional<Contest> findByContest(int postNo) {
+		Contest contest = em.find(Contest.class, postNo);
+		return Optional.ofNullable(contest);
+	}
+	@Override
+	public Optional<Join> findByJoin(int postNo) {
+		Join join = em.find(Join.class, postNo);
+		return Optional.ofNullable(join);
+	}
+	@Override
+	public Optional<Community> findByCommunity(int postNo) {
+		Community community = em.find(Community.class, postNo);
+		return Optional.ofNullable(community);
+	}
 	@Override
 	public List<Post> findAllPostName(String postName) {
 		return em.createQuery("select p from Post p where post_name=:postName", Post.class)
@@ -82,34 +103,33 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	}
 	@Override
 	public List<Post> findReversePostName(String postName) {
-		return em.createQuery("select p from Post p where post_name=:postName order by p.postName desc", Post.class)
+		return em.createQuery("select p from Post p where post_name=:postName order by p.postNo desc", Post.class)
 				.setParameter("postName", postName)
 				.getResultList();
 	}
 	@Override
-	public Optional<Member> findByMemberId(String memberId) {
-		List<Member> result =  em.createQuery("select m from Member m where m.memberId=:member_id", Member.class)
-				.setParameter("member_id", memberId)
-								.getResultList();
-		return result.stream().findAny();
+	public List<Contest> findAllContest() {
+		return em.createQuery("select c from Contest c", Contest.class).getResultList();
 	}
-	
 	@Override
-	public Optional<Contest> findByContest(int postNo) {
-		Contest contest = em.find(Contest.class, postNo);
-		return Optional.ofNullable(contest);
+	public List<Contest> findAllReverseContest() {
+		return em.createQuery("select c from Contest c order by c.postNo desc", Contest.class).getResultList();
 	}
-
 	@Override
-	public Optional<Join> findByJoin(int postNo) {
-		Join join = em.find(Join.class, postNo);
-		return Optional.ofNullable(join);
+	public List<Join> findAllJoin() {
+		return em.createQuery("select j from Join j", Join.class).getResultList();
 	}
-
 	@Override
-	public Optional<Community> findByCommunity(int postNo) {
-		Community community = em.find(Community.class, postNo);
-		return Optional.ofNullable(community);
+	public List<Join> findAllReverseJoin() {
+		return em.createQuery("select j from Join j order by j.postNo desc", Join.class).getResultList();
+	}
+	@Override
+	public List<Community> findAllCommunity() {
+		return em.createQuery("select c from Community c", Community.class).getResultList();
+	}
+	@Override
+	public List<Community> findAllReverseCommunity() {
+		return em.createQuery("select c from Community c order by c.postNo desc", Community.class).getResultList();
 	}
 	
 	@Override
@@ -118,7 +138,7 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		
 		if(contest.isEmpty())
 			return;
-		
+		contest.get().setTitle(updateContest.getTitle());
 		contest.get().setCompanyName(updateContest.getCompanyName());
 		contest.get().setField(updateContest.getField());
 		contest.get().setTargetName(updateContest.getTargetName());
@@ -136,6 +156,8 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		if(join.isEmpty())
 			return;
 		
+		join.get().setTitle(updateJoin.getTitle());
+		join.get().setTextbox(updateJoin.getTextbox());
 		join.get().setRegion(updateJoin.getRegion());
 		join.get().setJoinLink(updateJoin.getJoinLink());
 	}
@@ -147,6 +169,8 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		if(community.isEmpty())
 			return;
 		
+		community.get().setTitle(updateCommunity.getTitle());
+		community.get().setTextbox(updateCommunity.getTextbox());
 		community.get().setCategory(updateCommunity.getCategory());
 	}
 
@@ -165,4 +189,5 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.remove(findByCommunity(postNo).get());
 		em.remove(findByPostNo(postNo).get());		
 	}
+
 }

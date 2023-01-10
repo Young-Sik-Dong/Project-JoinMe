@@ -25,6 +25,12 @@ public interface JoinmeRepository {
 	Optional<Community> findByCommunity(int postNo);
 	List<Post> findAllPostName(String postName);
 	List<Post> findReversePostName(String postName);
+	List<Contest> findAllContest();
+	List<Contest> findAllReverseContest();
+	List<Join> findAllJoin();
+	List<Join> findAllReverseJoin();
+	List<Community> findAllCommunity();
+	List<Community> findAllReverseCommunity();
 	
 	void updateMember(int memberNo, Member updateMember);
 	void updateContest(int postNo, Contest updateContest);
