@@ -17,10 +17,11 @@ import himedia.joinme.domain.Contest;
 import himedia.joinme.domain.Join;
 import himedia.joinme.domain.Member;
 import himedia.joinme.domain.Post;
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
 @Transactional
-//@Slf4j
+@Slf4j
 class JPAJoinmeRepositoryTest {
 
 	@Autowired JPAJoinmeRepository repository;
@@ -104,30 +105,59 @@ class JPAJoinmeRepositoryTest {
 	
 	@Test
 	void findAllPostName() {
-		List<Post> findPost = repository.findAllPostName("COMMUNITY");
+		int before = repository.findAllPostName("COMMUNITY").size();
+		Post post1 = new Post("COMMUNITY", 1, "제목1", "본문1");
+		repository.savePost(post1);
 		
-		assertThat(findPost.size()).isEqualTo(3);
+		int after = repository.findAllPostName("COMMUNITY").size();
+		
+		assertThat(after).isEqualTo(before+1);
+	}
+	
+	@Test
+	void findReversePostName() {
+		int before = repository.findReversePostName("COMMUNITY").size();
+		Post post1 = new Post("COMMUNITY", 1, "제목1", "본문1");
+		repository.savePost(post1);
+		
+		int after = repository.findReversePostName("COMMUNITY").size();
+		
+		assertThat(after).isEqualTo(before+1);
 	}
 	
 	@Test
 	void findByContest() {
-		Contest contest = repository.findByContest(1).get();
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
+		
+		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+		
+		contest = repository.findByContest(contest.getPostNo()).get();
 		
 		assertThat(contest).isNotNull();
 	}
 	
 	@Test
 	void findByJoin() {
-		Join join = repository.findByJoin(4).get();
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "region1", "link1"));
 		
-		assertThat(join).isNotNull();
+		Join find = repository.findByJoin(join.getPostNo()).get();
+		
+		assertThat(find).isNotNull();
 	}
 	
 	@Test
 	void findByCommunity() {
-		Community community = repository.findByCommunity(7).get();
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("JOIN", member.getMemberNo(), "제목1", "본문1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "커뮤니티1"));
 		
-		assertThat(community).isNotNull();
+		Community find = repository.findByCommunity(community.getPostNo()).get();
+		
+		assertThat(find).isNotNull();
 	}
 	
 	@Test
@@ -136,7 +166,6 @@ class JPAJoinmeRepositoryTest {
 		Member member2 = new Member("id6", "1357", "하나");
 
 		repository.updateMember(member1.getMemberNo(), member2);
-		member1 = repository.findByMemberNo(member1.getMemberNo()).get();
 		
 		assertThat(member1.getMemberPassword()).isEqualTo(member2.getMemberPassword());
 	}
@@ -157,15 +186,13 @@ class JPAJoinmeRepositoryTest {
 	void updateContest() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
-		
 		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
 				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
-		
 		Contest updateContest = new Contest("company2", "field2", "target2", 
 				"host2", "reward2", "2023-02-01", "2023-03-01", "link2");
 		
 		repository.updateContest(post.getPostNo(), updateContest);
-		contest = repository.findByContest(post.getPostNo()).get();
+		contest = repository.findByContest(contest.getPostNo()).get();
 		
 		assertThat(contest.getCompanyName()).isEqualTo(updateContest.getCompanyName());
 	}
@@ -199,20 +226,26 @@ class JPAJoinmeRepositoryTest {
 	@Test
 	void deleteMember() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		int memberNo = member.getMemberNo();
 		
-		repository.deleteMember(member.getMemberNo());
-		Optional<Member> find = repository.findByMemberNo(member.getMemberNo());
+		log.info("memberNo = {}", memberNo);
+		repository.deleteMember(memberNo);
+		Optional<Member> find = repository.findByMemberNo(memberNo);
 		
 		assertThat(find).isEmpty();
 	}
 	
 	@Test
-	void deletePost() {
-		Post post = repository.savePost(new Post("JOIN", 1, "제목1", "본문1"));
+	void deleteContest() {
+		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
+		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo(), "제목1", "본문1"));
+		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "company1", "field1",
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
 		
-		repository.deletePost(post.getPostNo());
-		Optional<Post> find = repository.findByPostNo(post.getPostNo());
+		int postNo = post.getPostNo();
+		repository.deleteContest(postNo);
+		Optional<Contest> find = repository.findByContest(postNo);
 		
 		assertThat(find).isEmpty();
-	}
+		}
 }

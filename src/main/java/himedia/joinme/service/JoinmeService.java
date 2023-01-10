@@ -1,4 +1,4 @@
-package himedia.joinme.service;
+	package himedia.joinme.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +31,14 @@ public class JoinmeService {
 		
 		return member;
 	}
+	public Member updatedMember(Member member) {
+		Optional<Member> find = Repository.findByMemberId(member.getMemberId());
+		
+		if(find.isPresent())
+			Repository.updateMember(member.getMemberNo(), member);
+		
+		return member;
+	}
 	
 	public Contest savedContest(Post post, Contest contest) {
 		post.setPostName("CONTEST");
@@ -52,17 +60,23 @@ public class JoinmeService {
 		community.setPostNo(post.getPostNo());
 		return Repository.saveCommunity(community);
 	}
-	
-	public Member updatedMember(Member member) {
-		Optional<Member> find = Repository.findByMemberId(member.getMemberId());
-		
-		if(find.isPresent())
-			Repository.updateMember(member.getMemberNo(), member);
-		
-		return member;
+	public Post findPost(int postNo) {
+		return Repository.findByPostNo(postNo).get();
 	}
-	
+	public Contest findContest(int postNo) {
+		return Repository.findByContest(postNo).get();
+	}
+	public Join findJoin(int postNo) {
+		return Repository.findByJoin(postNo).get();
+	}
+	public Community findCommunity(int postNo) {
+		return Repository.findByCommunity(postNo).get();
+	}
 	public List<Post> findAllPost(String postName) {
 		return Repository.findAllPostName(postName);
+	}
+	
+	public List<Post> findReversePost(String postName) {
+		return Repository.findReversePostName(postName);
 	}
 }

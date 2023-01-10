@@ -6,7 +6,6 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import himedia.joinme.domain.Community;
@@ -30,7 +29,21 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.persist(member);
 		return member;
 	}
-
+	@Override
+	public Optional<Member> findByMemberNo(int memberNo) {
+		Member member = em.find(Member.class, memberNo);
+		return Optional.ofNullable(member);
+	}
+	@Override
+	public void updateMember(int memberNo, Member updateMember) {
+		Member member = findByMemberNo(memberNo).get();
+		member.setMemberPassword(updateMember.getMemberPassword());
+		member.setNickname(updateMember.getNickname());
+	}
+	@Override
+	public void deleteMember(int memberNo) {
+		em.remove(findByMemberNo(memberNo).get());
+	}
 	@Override
 	public Post savePost(Post post) {
 		em.persist(post);
@@ -54,12 +67,6 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.persist(community);
 		return community;
 	}
-	
-	@Override
-	public Optional<Member> findByMemberNo(int memberNo) {
-		Member member = em.find(Member.class, memberNo);
-		return Optional.ofNullable(member);
-	}
 
 	@Override
 	public Optional<Post> findByPostNo(int postNo) {
@@ -69,11 +76,16 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	
 	@Override
 	public List<Post> findAllPostName(String postName) {
-		return em.createQuery("select m from Post m where post_name=:postName", Post.class)
+		return em.createQuery("select p from Post p where post_name=:postName", Post.class)
 				.setParameter("postName", postName)
 				.getResultList();
 	}
-	
+	@Override
+	public List<Post> findReversePostName(String postName) {
+		return em.createQuery("select p from Post p where post_name=:postName order by p.postName desc", Post.class)
+				.setParameter("postName", postName)
+				.getResultList();
+	}
 	@Override
 	public Optional<Member> findByMemberId(String memberId) {
 		List<Member> result =  em.createQuery("select m from Member m where m.memberId=:member_id", Member.class)
@@ -84,141 +96,84 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	
 	@Override
 	public Optional<Contest> findByContest(int postNo) {
-		List<Contest> result =  em.createQuery("select c from Contest c where c.postNo=:post_no", Contest.class)
-				.setParameter("post_no", postNo)
-				.getResultList();
-		return result.stream().findAny();
+		Contest contest = em.find(Contest.class, postNo);
+		return Optional.ofNullable(contest);
 	}
 
 	@Override
 	public Optional<Join> findByJoin(int postNo) {
-		List<Join> result =  em.createQuery("select j from Join j where j.postNo=:post_no", Join.class)
-				.setParameter("post_no", postNo)
-				.getResultList();
-		return result.stream().findAny();
+		Join join = em.find(Join.class, postNo);
+		return Optional.ofNullable(join);
 	}
 
 	@Override
 	public Optional<Community> findByCommunity(int postNo) {
-		List<Community> result =  em.createQuery("select c from Community c where c.postNo=:post_no", Community.class)
-				.setParameter("post_no", postNo)
-				.getResultList();
-		return result.stream().findAny();
+		Community community = em.find(Community.class, postNo);
+		return Optional.ofNullable(community);
 	}
 	
 	@Override
-	public void updateMember(int memberNo, Member updateMember) {
-		String sql = "update Member m "
-				+ "set member_password=:memberPassword, "
-				+ "nickname=:nickname, "
-				+ "modify_date=current_date "
-				+ "where member_no=:memberNo";
-		
-		int result = em.createQuery(sql)
-					.setParameter("memberPassword", updateMember.getMemberPassword())
-					.setParameter("nickname", updateMember.getNickname())
-					.setParameter("memberNo", memberNo)
-					.executeUpdate();
-		
-		log.info("result >> {}", result);
-		em.clear();
-	}
-
-	@Override
 	public void updatePost(int postNo, Post updatePost) {
-		String sql = "update Post p "
-				+ "set title=:title, "
-				+ "textbox=:textbox, "
-				+ "modify_date=current_date "
-				+ "where post_no=:postNo";
+		Optional<Post> post = findByPostNo(postNo);
 		
-		int result = em.createQuery(sql)
-				.setParameter("title", updatePost.getTitle())
-				.setParameter("textbox", updatePost.getTextbox())
-				.setParameter("postNo", postNo)
-				.executeUpdate();
-				
-		log.info("result >> {}", result);
-		em.clear();
+		if(post.isEmpty())
+			return;
+		
+		post.get().setTitle(updatePost.getTitle());
+		post.get().setTextbox(updatePost.getTextbox());
 	}
 
 	@Override
 	public void updateContest(int postNo, Contest updateContest) {
-		String sql = "update Contest c "
-				+ "set company_name=:companyName, "
-				+ "field=:field, "
-				+ "target_name=:targetName, "
-				+ "host_name=:hostName, "
-				+ "reward=:reward, "
-				+ "start_date=:startDate, "
-				+ "end_date=:endDate, "
-				+ "contest_link=:contestLink "
-				+ "where post_no=:postNo";
+		Optional<Contest> contest = findByContest(postNo);
 		
-		int result = em.createQuery(sql)
-				.setParameter("companyName", updateContest.getCompanyName())
-				.setParameter("field", updateContest.getField())
-				.setParameter("targetName", updateContest.getTargetName())
-				.setParameter("hostName", updateContest.getHostName())
-				.setParameter("reward", updateContest.getReward())
-				.setParameter("startDate", updateContest.getStartDate())
-				.setParameter("endDate", updateContest.getEndDate())
-				.setParameter("contestLink", updateContest.getContestLink())
-				.setParameter("postNo", postNo)
-				.executeUpdate();
+		if(contest.isEmpty())
+			return;
 		
-		log.info("result >> {}", result);
-		em.clear();
+		contest.get().setCompanyName(updateContest.getCompanyName());
+		contest.get().setField(updateContest.getField());
+		contest.get().setTargetName(updateContest.getTargetName());
+		contest.get().setHostName(updateContest.getHostName());
+		contest.get().setReward(updateContest.getReward());
+		contest.get().setStartDate(updateContest.getStartDate());
+		contest.get().setEndDate(updateContest.getEndDate());
+		contest.get().setContestLink(updateContest.getContestLink());
 	}
 
 	@Override
 	public void updateJoin(int postNo, Join updateJoin) {
-		String sql = "update Join j "
-				+ "set region=:region, "
-				+ "join_link=:joinLink "
-				+ "where post_no=:postNo";
+		Optional<Join> join = findByJoin(postNo);
 		
-		int result = em.createQuery(sql)
-				.setParameter("region", updateJoin.getRegion())
-				.setParameter("joinLink", updateJoin.getJoinLink())
-				.setParameter("postNo", postNo)
-				.executeUpdate();
+		if(join.isEmpty())
+			return;
 		
-		log.info("result >> {}", result);
-		em.clear();
+		join.get().setRegion(updateJoin.getRegion());
+		join.get().setJoinLink(updateJoin.getJoinLink());
 	}
 
 	@Override
 	public void updateCommunity(int postNo, Community updateCommunity) {
-		String sql = "update Community c "
-				+ "set category=:category "
-				+ "where post_no=:postNo";
+		Optional<Community> community = findByCommunity(postNo);
 		
-		int result = em.createQuery(sql)
-				.setParameter("category", updateCommunity.getCategory())
-				.setParameter("postNo", postNo)
-				.executeUpdate();
+		if(community.isEmpty())
+			return;
 		
-		log.info("result >> {}", result);
-		em.clear();
-	}
-
-	@Modifying
-	@Override
-	public void deleteMember(int memberNo) {
-		em.createQuery("delete from Member m where member_no=:memberNo")
-			.setParameter("memberNo", memberNo)
-			.executeUpdate();
-		
-		em.clear();
+		community.get().setCategory(updateCommunity.getCategory());
 	}
 
 	@Override
-	public void deletePost(int postNo) {
-		em.createQuery("delete from Post m where post_no=:postNo")
-		.setParameter("postNo", postNo)
-		.executeUpdate();
-		
-		em.clear();
+	public void deleteContest(int postNo) {
+		em.remove(findByContest(postNo).get());
+		em.remove(findByPostNo(postNo).get());
+	}
+	@Override
+	public void deleteJoin(int postNo) {
+		em.remove(findByJoin(postNo).get());
+		em.remove(findByPostNo(postNo).get());		
+	}
+	@Override
+	public void deleteCommunity(int postNo) {
+		em.remove(findByCommunity(postNo).get());
+		em.remove(findByPostNo(postNo).get());		
 	}
 }
