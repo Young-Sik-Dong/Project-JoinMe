@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-		th:replace="~{fragments/layout-form::layout(~{::title}, ~{::section})}">
+  th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+  <title>community</title>
 
-<title>community</title>
+  <section>
+        <div id="container">
+      <div id="side_menu">
+        <ul class="contest_menu">
+          <li class="cm1"><a href="#">공모전</a></li>
+          <li class="cm2"><a href="#">모집</a></li>
+          <li class="cm3"><a href="#">커뮤니티</a></li>
+          <li class="cm4"><a href="#">마이페이지</a></li>
+        </ul>
+      </div>
 
-<!-- START : CONTAINER -->
-<section>
-  <main class="container">
-    <div class="p-4 p-md-3 mb-4 rounded text-bg-warning">
-      <div class="col-12 px-0">
-        <h2 class="d-flex justify-content-center p-1">커뮤니티</h2>
-				<div class="p-4 mb-4 rounded text-bg-light">
-					<p class="p-2 d-flex justify-content-center">커뮤니티 리스트</p>
-				</div>
+      <div id="contents">
+        <div class="search">
+          <form action="#" method="post">
+            <input class="search_text" type="text" placeholder="검색할 공모전을 입력하세요">
+            <button class="search_btn" type="submit">검색</button>
+          </form>
+        </div>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th class="title">제목</th>
+              <th class="write-date">작성일</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr th:each="post:${postList}">
+        	<td th:text="${post.postNo}"></td>
+        	<td th:text="${post.postName}"></td>
+        	<td th:text="${post.regiDate}"></td>
+        	</tr>
+          </tbody>
+        </table>
+        <div class="bottom-btn">
+          <form action="/write" method="post">
+            <button class="write_btn" type="submit">글작성</button>
+          </form>
+        </div>
       </div>
     </div>
-	</main>
-</section>
+  </section>
+</html>
