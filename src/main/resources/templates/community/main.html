@@ -27,22 +27,23 @@
             <tr>
               <th>번호</th>
               <th class="title">제목</th>
-              <th class="write-date">작성일</th>
             </tr>
           </thead>
 
           <tbody>
             <tr th:each="post:${postList}">
-        	<td th:text="${post.postNo}"></td>
-        	<td th:text="${post.postName}"></td>
-        	<td th:text="${post.regiDate}"></td>
+        	<td><a href="post.html"
+        			th:href=@{|/community/post/${post.postNo}|} 
+        			th:text="${post.postNo}"></a></td>
+        	<td ><a href="post.html"
+        			th:href=@{|/community/post/${post.postNo}|} 
+        			th:text="${post.title}"></a>
+        	</td>
         	</tr>
           </tbody>
         </table>
-        <div class="bottom-btn">
-          <form action="/write" method="post">
-            <button class="write_btn" type="submit">글작성</button>
-          </form>
+        <div class="bottom_btn">
+            <button class="write_btn" onclick="location.href='/contest/post/add'">글작성</button>
         </div>
       </div>
     </div>
