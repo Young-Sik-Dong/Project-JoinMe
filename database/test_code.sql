@@ -8,6 +8,8 @@ insert into member(member_id, member_password, nickname)
 
 select * from member;
 
+select * from post order by post_no desc;
+
 update member
 set 
 member_password = "1357",

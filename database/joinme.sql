@@ -22,8 +22,6 @@ create table if not exists post(
 	post_no int not null auto_increment,
 	member_no int not null,
     post_name varchar(20) not null,
-    title varchar(60) not null,
-    textbox varchar(600) not null,
     registration_date date default (current_date),
     modify_date date default '9999-01-01',
 	
@@ -35,6 +33,7 @@ create table if not exists post(
 create table if not exists contest(
     post_no int not null,
     contest_no int not null,
+	title varchar(60) not null,
     company_name varchar(60) not null,
     field varchar(100) not null,
     target_name varchar(40) not null,
@@ -54,6 +53,8 @@ create table if not exists contest(
 create table if not exists recruitment(
     post_no int not null,
 	contest_no int,
+	title varchar(60) not null,
+    textbox varchar(600) not null,
     region varchar(30) not null,
     join_link char(100),
     
@@ -66,6 +67,8 @@ create table if not exists recruitment(
 
 create table if not exists community(
    	post_no int not null,
+    title varchar(60) not null,
+    textbox varchar(600) not null,
     category varchar(20) not null,
     
     primary key(post_no),
