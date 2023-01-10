@@ -19,6 +19,8 @@ public class Contest {
 	private int postNo;
 	@Column (name = "contest_no")
 	private int contestNo;
+	@Column (name = "title")
+	private String title;
 	@Column (name = "company_name")
 	private String companyName;
 	//@ElementCollection(targetClass=String.class)
@@ -38,8 +40,9 @@ public class Contest {
 	@Column (name = "contest_link")
 	private String contestLink;
 	
-	public Contest(String companyName, String field, String targetName, String hostName, String reward,
+	public Contest(String title, String companyName, String field, String targetName, String hostName, String reward,
 			String startDate, String endDate, String contestLink) {
+		this.title = title;
 		this.companyName = companyName;
 		this.field = field;
 		this.targetName = targetName;

@@ -17,9 +17,13 @@ public class Community {
 	@Id
 	@Column (name = "post_no")
 	private int postNo;
+	private String title;
+	private String textbox;
 	private String category;
 	
-	public Community(String category) {
+	public Community(String title, String textbox, String category) {
+		this.title = title;
+		this.textbox = textbox;
 		this.category = category;
 	}
 }

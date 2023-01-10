@@ -21,11 +21,15 @@ public class Join {
 	private int postNo;
 	@Column (name = "contest_no")
 	private int contestNo;
+	private String title;
+	private String textbox;
 	private String region;
 	@Column (name = "join_link")
 	private String joinLink;
 	
-	public Join(String region, String joinLink) {
+	public Join(String title, String textbox, String region, String joinLink) {
+		this.title = title;
+		this.textbox = textbox;
 		this.region = region;
 		this.joinLink = joinLink;
 	}
