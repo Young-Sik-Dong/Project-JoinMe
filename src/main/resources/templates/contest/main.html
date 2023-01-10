@@ -27,7 +27,6 @@
             <tr>
               <th>번호</th>
               <th class="title">제목</th>
-              <th class="write-date">작성일</th>
             </tr>
           </thead>
 
@@ -38,9 +37,9 @@
         			th:text="${post.postNo}"></a></td>
         	<td ><a href="post.html"
         			th:href=@{|/contest/post/${post.postNo}|} 
-        			th:text="${post.postName}"></a>
+        			th:text="${post.title}"></a>
         	</td>
-        	<td th:text="${post.regiDate}"></td>
+        	<!-- <td th:each="post:${postList}" th:text="${post.regiDate}"></td> -->
         	</tr>
           </tbody>
         </table>

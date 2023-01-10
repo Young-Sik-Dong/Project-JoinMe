@@ -15,40 +15,50 @@
 
     <div id="contents">
       <h2>공모전 추가</h2>
-      <form action="post.html" th:action th:object="${post}" method="post">
+      <form action="post.html" th:action th:object="${contest}" method="post" required>
         <div class="contest_form">
-          <label for="title">이름</label><input type="text" placeholder="공모전 제목을 입력하세요">
+          <label for="title">이름</label>
+          <input type="text" id="title" th:field="*{title}" placeholder="공모전 제목을 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="company">회사</label><input type="text" placeholder="회사명을 입력하세요">
+          <label for="companyName">회사</label>
+          <input type="text" id="companyName" th:field="*{companyName}" placeholder="회사명을 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="field">분야</label><input type="text" placeholder="분야를 입력하세요">
+          <label for="field">분야</label>
+          <input type="text" id="field" th:field="*{field}" placeholder="분야를 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="target">대상</label><input type="text" placeholder="대상을 입력하세요">
+          <label for="targetName">대상</label>
+          <input type="text" id="targetName" th:field="*{targetName}" placeholder="대상을 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="host">주최</label><input type="text" placeholder="주최를 입력하세요">
+          <label for="hostName">주최</label>
+          <input type="text" id="hostName" th:field="*{hostName}" placeholder="주최를 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="reward">상금</label><input type="text" placeholder="상금을 입력하세요">
+          <label for="reward">상금</label>
+          <input type="text" id="reward" th:field="*{reward}" placeholder="상금을 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="start">시작</label><input type="date">
+          <label for="startDate">시작</label>
+          <input type="date" id="startDate" th:field="*{startDate}" required>
         </div>
         <div class="contest_form">
-          <label for="end">마감</label><input type="date">
+          <label for="endDate">마감</label>
+          <input type="date" id="endDate" th:field="*{endDate}" required>
         </div>
         <div class="contest_form">
-          <label for="link">링크</label><input type="text" placeholder="주소를 입력하세요">
+          <label for="contestLink">링크</label>
+          <input type="text" id="contestLink" th:field="*{contestLink}" placeholder="주소를 입력하세요" required>
         </div>
-      </form>
       <div class="bottom-btn">
-        <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
-        <button class="write_btn" type="submit">글작성</button>
+          <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
+          <button type="submit">글작성</button>
       </div>
+      </form>
     </div>
   </div>
 </section>
+
 </html>

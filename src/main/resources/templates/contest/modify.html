@@ -13,6 +13,50 @@
       </ul>
     </div>
 
-
+	<div id="contents">
+      <h2>공모전 수정</h2>
+      <form action="post.html" th:action th:object="${contest}" method="post">
+        <div class="contest_form">
+          <label for="title">이름</label>
+          <input type="text" id="title" th:field="*{title}">
+        </div>
+        <div class="contest_form">
+          <label for="companyName">회사</label>
+          <input type="text" id="companyName" th:field="*{companyName}">
+        </div>
+        <div class="contest_form">
+          <label for="field">분야</label>
+          <input type="text" id="field" th:field="*{field}">
+        </div>
+        <div class="contest_form">
+          <label for="targetName">대상</label>
+          <input type="text" id="targetName" th:field="*{targetName}">
+        </div>
+        <div class="contest_form">
+          <label for="hostName">주최</label>
+          <input type="text" id="hostName" th:field="*{hostName}">
+        </div>
+        <div class="contest_form">
+          <label for="reward">상금</label>
+          <input type="text" id="reward" th:field="*{reward}">
+        </div>
+        <div class="contest_form">
+          <label for="startDate">시작</label>
+          <input type="date" id="startDate" th:field="*{startDate}">
+        </div>
+        <div class="contest_form">
+          <label for="endDate">마감</label>
+          <input type="date" id="endDate" th:field="*{endDate}">
+        </div>
+        <div class="contest_form">
+          <label for="contestLink">링크</label>
+          <input type="text" id="contestLink" th:field="*{contestLink}">
+        </div>
+      <div class="bottom-btn">
+          <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
+          <button type="submit">글수정</button>
+      </div>
+      </form>
+  </div>
   </div>
 </section>

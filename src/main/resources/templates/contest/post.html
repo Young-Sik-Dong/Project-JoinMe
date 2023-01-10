@@ -17,15 +17,19 @@
       <h2>공모전 추가</h2>
       <div id="contest_main">
         <div class="contest_form">
-          <label for="title">제목</label>
-          <input type="text" id="title" name="title" value="제목" th:value=${post.title} disabled readonly>
+          <label for="title">이름</label>
+          <input type="text" id="title" name="title" value="제목" th:value=${contest.title} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="field">회사</label>
+          <input type="text" id="company" name="company" value="분야" th:value=${contest.companyName} disabled readonly>
         </div>
         <div class="contest_form">
           <label for="field">분야</label>
           <input type="text" id="field" name="field" value="분야" th:value=${contest.field} disabled readonly>
         </div>
         <div class="contest_form">
-          <label for="target">타겟</label>
+          <label for="target">대상</label>
           <input type="text" id="target" name="target" value="타겟" th:value=${contest.targetName} disabled readonly>
         </div>
         <div class="contest_form">
@@ -49,7 +53,7 @@
         <div class="bottom_btn">
           <div class="contest_btn">
             <button class="back_btn" th:onclick="|location.href='@{/contest}'|">이전</button>
-            <button class="update_btn" type="submit">수정</button>
+            <button class="update_btn" th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
           </div>
         </div>
       </div>
