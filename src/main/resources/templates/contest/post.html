@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>contest detail</title>
+
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+        <li class="cm4"><a href="#">마이페이지</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <h2>공모전 추가</h2>
+      <div id="contest_main">
+        <div class="contest_form">
+          <label for="title">제목</label>
+          <input type="text" id="title" name="title" value="제목" th:value=${post.title} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="field">분야</label>
+          <input type="text" id="field" name="field" value="분야" th:value=${contest.field} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="target">타겟</label>
+          <input type="text" id="target" name="target" value="타겟" th:value=${contest.targetName} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="host">주최</label>
+          <input type="text" id="host" name="host" value="주최" th:value=${contest.hostName} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="reward">상금</label>
+          <input type="text" id="reward" name="reward" value="상금" th:value=${contest.reward} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="date">기간</label>
+          <input type="date" id="start" name="date" value="0000-00-00" th:value=${contest.startDate} disabled readonly>
+          <span> ~ </span>
+          <input type="date" id="end" name="date" value="0000-00-00" th:value=${contest.endDate} disabled readonly>
+        </div>
+        <div class="contest_form">
+          <label for="link">주소</label>
+          <input type="text" id="link" name="link" value="주소" th:value=${contest.contestLink} disabled readonly>
+        </div>
+        <div class="bottom_btn">
+          <div class="contest_btn">
+            <button class="back_btn" th:onclick="|location.href='@{/contest}'|">이전</button>
+            <button class="update_btn" type="submit">수정</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</html>

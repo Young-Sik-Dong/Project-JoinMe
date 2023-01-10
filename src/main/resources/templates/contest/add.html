@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>contest</title>
+
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+        <li class="cm4"><a href="#">마이페이지</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <h2>공모전 추가</h2>
+      <form action="post.html" th:action th:object="${post}" method="post">
+        <div class="contest_form">
+          <label for="title">이름</label><input type="text" placeholder="공모전 제목을 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="company">회사</label><input type="text" placeholder="회사명을 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="field">분야</label><input type="text" placeholder="분야를 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="target">대상</label><input type="text" placeholder="대상을 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="host">주최</label><input type="text" placeholder="주최를 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="reward">상금</label><input type="text" placeholder="상금을 입력하세요">
+        </div>
+        <div class="contest_form">
+          <label for="start">시작</label><input type="date">
+        </div>
+        <div class="contest_form">
+          <label for="end">마감</label><input type="date">
+        </div>
+        <div class="contest_form">
+          <label for="link">링크</label><input type="text" placeholder="주소를 입력하세요">
+        </div>
+      </form>
+      <div class="bottom-btn">
+        <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
+        <button class="write_btn" type="submit">글작성</button>
+      </div>
+    </div>
+  </div>
+</section>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" 
+  th:fragment="layout(title, container)">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>joinme</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <div th:replace="fragments/header::header"></div>
+      <div th:replace="${container}" id="container"></div>
+    </div>
+  </body>
+</html>
