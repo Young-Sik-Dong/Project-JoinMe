@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import himedia.joinme.domain.Community;
 import himedia.joinme.domain.Contest;
@@ -39,8 +40,11 @@ public class JoinmeService {
 		
 		return member;
 	}
-	
-	public Contest savedContest(Post post, Contest contest) {
+	public Post savedPost(Post post) {
+		return Repository.savePost(post);
+	}
+
+	public Contest savedContest(Post post, String title, String textBox,Contest contest) {
 		post.setPostName("CONTEST");
 		Repository.savePost(post);
 		contest.setPostNo(post.getPostNo());
@@ -75,8 +79,11 @@ public class JoinmeService {
 	public List<Post> findAllPost(String postName) {
 		return Repository.findAllPostName(postName);
 	}
-	
 	public List<Post> findReversePost(String postName) {
 		return Repository.findReversePostName(postName);
+	}
+	public Contest updateContest(int postNo, @ModelAttribute Contest contest) {
+		Repository.updateContest(postNo, contest);
+		return findContest(postNo);
 	}
 }
