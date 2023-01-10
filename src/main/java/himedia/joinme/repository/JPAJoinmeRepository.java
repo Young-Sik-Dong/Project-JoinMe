@@ -113,17 +113,6 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	}
 	
 	@Override
-	public void updatePost(int postNo, Post updatePost) {
-		Optional<Post> post = findByPostNo(postNo);
-		
-		if(post.isEmpty())
-			return;
-		
-		post.get().setTitle(updatePost.getTitle());
-		post.get().setTextbox(updatePost.getTextbox());
-	}
-
-	@Override
 	public void updateContest(int postNo, Contest updateContest) {
 		Optional<Contest> contest = findByContest(postNo);
 		
