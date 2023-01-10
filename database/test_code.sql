@@ -20,6 +20,11 @@ where member_id = 'id4';
 delete from member
 where member_id like 'id4';
 
+delete from post
+where post_no = 28;
+
+select * from contest;
+
 select * from post;
 select * from recruitment;
 select * from community;
