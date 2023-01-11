@@ -25,7 +25,6 @@ class JPAJoinmeRepositoryTest {
 
 	@Autowired JPAJoinmeRepository repository;
 	@Autowired EntityManager em;
-	
 	@Test
 	void memberSave() {
 		Member member1 = new Member("id4", "1234", "하루");
@@ -77,7 +76,7 @@ class JPAJoinmeRepositoryTest {
 		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo()));
 		
 		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(),"제목1", "company1", "field",
-												"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+												"target", "host", "reward", "2023-01-01", "2023-02-01", "link1", "2023-01-01", "9999-01-01"));
 		
 		assertThat(contest.getPostNo()).isEqualTo(post.getPostNo());
 	}
@@ -87,7 +86,7 @@ class JPAJoinmeRepositoryTest {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo()));
 		
-		Join join = repository.saveJoin(new Join(post.getPostNo(), post.getPostNo(), "제목1", "본문1", "region", "link"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), post.getPostNo(), "제목1", "본문1", "region", "link", "2023-01-01", "9999-01-01"));
 
 		assertThat(join.getPostNo()).isEqualTo(post.getPostNo());
 	}
@@ -97,7 +96,7 @@ class JPAJoinmeRepositoryTest {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("COMMUNITY", member.getMemberNo()));
 		
-		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "cate1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "cate1", "2023-01-01", "9999-01-01"));
 		
 		assertThat(community.getPostNo()).isEqualTo(post.getPostNo());
 	}
@@ -158,7 +157,7 @@ class JPAJoinmeRepositoryTest {
 		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo()));
 		
 		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "제목1", "company1", "field1",
-				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1", "2023-01-01", "9999-01-01"));
 		
 		contest = repository.findByContest(contest.getPostNo()).get();
 		
@@ -169,7 +168,7 @@ class JPAJoinmeRepositoryTest {
 	void findByJoin() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("JOIN", member.getMemberNo()));
-		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "제목1", "본문1", "region1", "link1"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "제목1", "본문1", "region1", "link1", "2023-01-01", "9999-01-01"));
 		
 		Join find = repository.findByJoin(join.getPostNo()).get();
 		
@@ -180,7 +179,7 @@ class JPAJoinmeRepositoryTest {
 	void findByCommunity() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("JOIN", member.getMemberNo()));
-		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "커뮤니티1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "커뮤니티1", "2023-01-01", "9999-01-01"));
 		
 		Community find = repository.findByCommunity(community.getPostNo()).get();
 		
@@ -202,7 +201,7 @@ class JPAJoinmeRepositoryTest {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo()));
 		Contest contest = repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(), "제목1", "company1", "field1",
-				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1", "2023-01-01", "9999-01-01"));
 		Contest updateContest = new Contest("제목2", "company2", "field2", "target2", 
 				"host2", "reward2", "2023-02-01", "2023-03-01", "link2");
 		
@@ -216,7 +215,7 @@ class JPAJoinmeRepositoryTest {
 	void updateJoin() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("JOIN", member.getMemberNo()));
-		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "제목1", "본문1", "region1", "link1"));
+		Join join = repository.saveJoin(new Join(post.getPostNo(), 1, "제목1", "본문1", "region1", "link1", "2023-01-01", "9999-01-01"));
 		Join updateJoin = new Join("제목2", "본문2", "region2", "link2");
 		
 		repository.updateJoin(post.getPostNo(), updateJoin);
@@ -229,7 +228,7 @@ class JPAJoinmeRepositoryTest {
 	void updateCommunity() {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("JOIN", member.getMemberNo()));
-		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "커뮤니티1"));
+		Community community = repository.saveCommunity(new Community(post.getPostNo(), "제목1", "본문1", "커뮤니티1", "2023-01-01", "9999-01-01"));
 		Community updateCommunity = new Community("제목2", "본문2", "커뮤니티2");
 		
 		repository.updateCommunity(post.getPostNo(), updateCommunity);
@@ -255,7 +254,7 @@ class JPAJoinmeRepositoryTest {
 		Member member = repository.saveMember(new Member("id5", "1234", "하루"));
 		Post post = repository.savePost(new Post("CONTEST", member.getMemberNo()));
 		repository.saveContest(new Contest(post.getPostNo(), post.getPostNo(),"제목1", "company1", "field1",
-				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1"));
+				"target", "host", "reward", "2023-01-01", "2023-02-01", "link1", "2023-01-01", "9999-01-01"));
 		
 		int postNo = post.getPostNo();
 		repository.deleteContest(postNo);
