@@ -103,9 +103,26 @@ public class JoinmeService {
 	public List<Community> findAllReverseCommunity() {
 		return Repository.findAllReverseCommunity();
 	}
-	
 	public Contest updateContest(int postNo, @ModelAttribute Contest contest) {
 		Repository.updateContest(postNo, contest);
 		return findContest(postNo);
 	}
+	public Join updateJoin(int postNo, @ModelAttribute Join join) {
+		Repository.updateJoin(postNo, join);
+		return findJoin(postNo);
+	}
+	public Community updateCommnity(int postNo, @ModelAttribute Community community) {
+		Repository.updateCommunity(postNo, community);
+		return findCommunity(postNo);
+	}
+	public void deleteContest(int postNo) {
+		Repository.deleteContest(postNo);
+	}
+	public void deleteJoin(int postNo) {
+		Repository.deleteJoin(postNo);
+	}
+	public void deleteCommunity(int postNo) {
+		Repository.deleteCommunity(postNo);
+	}
+	
 }
