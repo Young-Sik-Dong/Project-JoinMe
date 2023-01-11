@@ -14,7 +14,7 @@
     </div>
 
     <div id="contents">
-      <h2>공모전 추가</h2>
+      <h2>공모전 상세페이지</h2>
       <div id="contest_main">
         <div class="contest_form">
           <label for="title">이름</label>
@@ -26,19 +26,35 @@
         </div>
         <div class="contest_form">
           <label for="field">분야</label>
-          <input type="text" id="field" name="field" value="분야" th:value=${contest.field} disabled readonly>
+          <select th:field="${contest.field}" disabled>
+            <option value="">전체</option>
+            <option th:each="field : ${fields}" th:value="${field.code}"
+          		    th:text="${field.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="target">대상</label>
-          <input type="text" id="target" name="target" value="타겟" th:value=${contest.targetName} disabled readonly>
+          <select th:field="${contest.targetName}" disabled>
+            <option value="">전체</option>
+            <option th:each="targetName : ${targetNames}" th:value="${targetName.code}"
+          		    th:text="${targetName.displayName}">전체</option>
+          </select>        
         </div>
         <div class="contest_form">
           <label for="host">주최</label>
-          <input type="text" id="host" name="host" value="주최" th:value=${contest.hostName} disabled readonly>
+          <select th:field="${contest.hostName}" disabled>
+            <option value="">전체</option>
+            <option th:each="hostName : ${hostNames}" th:value="${hostName.code}"
+          		    th:text="${hostName.displayName}">전체</option>
+          </select>   
         </div>
         <div class="contest_form">
           <label for="reward">상금</label>
-          <input type="text" id="reward" name="reward" value="상금" th:value=${contest.reward} disabled readonly>
+          <select th:field="${contest.reward}" disabled>
+            <option value="">전체</option>
+            <option th:each="reward : ${rewards}" th:value="${reward.code}"
+          		    th:text="${reward.displayName}">전체</option>
+          </select>     
         </div>
         <div class="contest_form">
           <label for="date">기간</label>
@@ -54,6 +70,9 @@
           <div class="contest_btn">
             <button class="back_btn" th:onclick="|location.href='@{/contest}'|">이전</button>
             <button class="update_btn" th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
+            <form action="post.html" th:action method="post"> 
+            	<button type="submit" th:onclick="|location.href='@{/contest}'|">삭제</button>
+            </form>
           </div>
         </div>
       </div>

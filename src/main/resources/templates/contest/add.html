@@ -26,19 +26,35 @@
         </div>
         <div class="contest_form">
           <label for="field">분야</label>
-          <input type="text" id="field" th:field="*{field}" placeholder="분야를 입력하세요" required>
+          <select th:field="*{field}">
+            <option value="">전체</option>
+            <option th:each="field : ${fields}" th:value="${field.code}"
+          		    th:text="${field.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="targetName">대상</label>
-          <input type="text" id="targetName" th:field="*{targetName}" placeholder="대상을 입력하세요" required>
+          <select th:field="*{targetName}">
+            <option value="">전체</option>
+            <option th:each="targetName : ${targetNames}" th:value="${targetName.code}"
+          		    th:text="${targetName.displayName}">전체</option>
+          </select>        
         </div>
         <div class="contest_form">
           <label for="hostName">주최</label>
-          <input type="text" id="hostName" th:field="*{hostName}" placeholder="주최를 입력하세요" required>
+          <select th:field="*{hostName}">
+            <option value="">전체</option>
+            <option th:each="hostName : ${hostNames}" th:value="${hostName.code}"
+          		    th:text="${hostName.displayName}">전체</option>
+          </select>   
         </div>
         <div class="contest_form">
           <label for="reward">상금</label>
-          <input type="text" id="reward" th:field="*{reward}" placeholder="상금을 입력하세요" required>
+          <select th:field="*{reward}">
+            <option value="">전체</option>
+            <option th:each="reward : ${rewards}" th:value="${reward.code}"
+          		    th:text="${reward.displayName}">전체</option>
+          </select>     
         </div>
         <div class="contest_form">
           <label for="startDate">시작</label>

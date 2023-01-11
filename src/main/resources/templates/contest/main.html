@@ -27,6 +27,7 @@
             <tr>
               <th>번호</th>
               <th class="title">제목</th>
+              <th>작성일</th>
             </tr>
           </thead>
 
@@ -39,7 +40,7 @@
         			th:href=@{|/contest/post/${post.postNo}|} 
         			th:text="${post.title}"></a>
         	</td>
-        	<!-- <td th:each="post:${postList}" th:text="${post.regiDate}"></td> -->
+        	<td th:text="${post.regiDate}"></td>
         	</tr>
           </tbody>
         </table>
