@@ -185,7 +185,7 @@ public class JoinmeController {
 	@GetMapping("/login")
 	public String login(Model model) {
 		model.addAttribute("member", new Member());
-		return "login/sign_in";
+		return "login/signin";
 	}
 	
 	@PostMapping("/login")
@@ -215,13 +215,13 @@ public class JoinmeController {
 	@GetMapping("/login/registration")
 	public String registration(Model model) {
 		model.addAttribute("member", new Member());
-		return "login/sign_up";
+		return "login/signup";
 	}
 	
 	@PostMapping("/login/registration")
 	public String registrationAdd(@ModelAttribute Member member) {
 		service.savedMember(member);
-		return "redirect:/login/sign_in";
+		return "redirect:/login/signin";
 	}
 
 	@ModelAttribute("fields")
