@@ -9,7 +9,6 @@
         <li class="cm1"><a href="/contest">공모전</a></li>
         <li class="cm2"><a href="/join">모집</a></li>
         <li class="cm3"><a href="/community">커뮤니티</a></li>
-        <li class="cm4"><a href="#">마이페이지</a></li>
       </ul>
     </div>
 
@@ -20,7 +19,7 @@
           <label for="title">제목</label>
           <input type="text" id="title" th:field="*{title}" placeholder="제목을 입력하세요" required>
         </div>
-      	<div class="contest_form">
+        <div class="contest_form">
           <label for="contestNo">공모전 번호</label>
           <input type="number" id="contestNo" th:field="*{contestNo}" placeholder="공모전 번호를 입력하세요" required>
         </div>
@@ -28,9 +27,8 @@
           <label for="region">지역</label>
           <select th:field="*{region}">
             <option value="">전체</option>
-            <option th:each="region : ${regions}" th:value="${region.code}"
-          		    th:text="${region.displayName}">전체</option>
-          </select>        
+            <option th:each="region : ${regions}" th:value="${region.code}" th:text="${region.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="joinLink">링크</label>
@@ -40,10 +38,10 @@
           <label for="textbox"></label>
           <textarea rows="10" cols="60" th:field="*{textbox}" placeholder="" required></textarea>
         </div>
-      <div class="bottom-btn">
+        <div class="bottom-btn">
           <button type="button" th:onclick="|location.href='@{/join}'|">취소</button>
           <button type="submit">글작성</button>
-      </div>
+        </div>
       </form>
     </div>
   </div>

@@ -9,7 +9,6 @@
         <li class="cm1"><a href="/contest">공모전</a></li>
         <li class="cm2"><a href="/join">모집</a></li>
         <li class="cm3"><a href="/community">커뮤니티</a></li>
-        <li class="cm4"><a href="#">마이페이지</a></li>
       </ul>
     </div>
 
@@ -28,9 +27,8 @@
           <label for="region">지역</label>
           <select th:field="${join.region}" disabled>
             <option value="">전체</option>
-            <option th:each="region : ${regions}" th:value="${region.code}"
-          		    th:text="${region.displayName}">전체</option>
-          </select>        
+            <option th:each="region : ${regions}" th:value="${region.code}" th:text="${region.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="joinLink">링크</label>
@@ -39,15 +37,16 @@
         <div class="contest_form">
           <label for="textbox">본문</label>
           <div>
-          <input type="text" id="textbox" name="textbox" value="본문" th:value=${join.textbox} disabled readonly>
+            <input type="text" id="textbox" name="textbox" value="본문" th:value=${join.textbox} disabled readonly>
           </div>
         </div>
         <div class="bottom_btn">
           <div class="contest_btn">
             <button class="back_btn" th:onclick="|location.href='@{/join}'|">이전</button>
-            <button class="update_btn" th:onclick="|location.href='@{/join/post/{postNo}/modify(postNo=${join.postNo})}'|">수정</button>
-            <form action="post.html" th:action method="post"> 
-            	<button type="submit" class="back_btn" th:onclick="|location.href='@{/join}'|">삭제</button>
+            <button class="update_btn"
+              th:onclick="|location.href='@{/join/post/{postNo}/modify(postNo=${join.postNo})}'|">수정</button>
+            <form action="post.html" th:action method="post">
+              <button type="submit" class="back_btn" th:onclick="|location.href='@{/join}'|">삭제</button>
             </form>
           </div>
         </div>
@@ -55,4 +54,5 @@
     </div>
   </div>
 </section>
+
 </html>

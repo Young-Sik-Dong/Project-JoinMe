@@ -1,53 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-  th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
-  <title>join</title>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>join</title>
 
-  <section>
-        <div id="container">
-      <div id="side_menu">
-        <ul class="contest_menu">
-          <li class="cm1"><a href="/contest">공모전</a></li>
-          <li class="cm2"><a href="/join">모집</a></li>
-          <li class="cm3"><a href="/community">커뮤니티</a></li>
-          <li class="cm4"><a href="#">마이페이지</a></li>
-        </ul>
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <div class="search">
+        <form action="#" method="post">
+          <input class="search_text" type="text" placeholder="검색할 공모전을 입력하세요">
+          <button class="search_btn" type="submit">검색</button>
+        </form>
       </div>
 
-      <div id="contents">
-        <div class="search">
-          <form action="#" method="post">
-            <input class="search_text" type="text" placeholder="검색할 공모전을 입력하세요">
-            <button class="search_btn" type="submit">검색</button>
-          </form>
-        </div>
-        
-        <table>
-          <thead>
-            <tr>
-              <th>번호</th>
-              <th class="title">제목</th>
-              <th>작성일</th>
-            </tr>
-          </thead>
+      <table>
+        <thead>
+          <tr>
+            <th>번호</th>
+            <th class="title">제목</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
 
-          <tbody>
-            <tr th:each="post:${postList}">
-        	<td><a href="post.html"
-        			th:href=@{|/join/post/${post.postNo}|} 
-        			th:text="${post.postNo}"></a></td>
-        	<td ><a href="post.html"
-        			th:href=@{|/join/post/${post.postNo}|} 
-        			th:text="${post.title}"></a>
-        	</td>
-        	<td th:text="${post.regiDate}"></td>
-        	</tr>
-          </tbody>
-        </table>
-        <div class="bottom_btn">
-            <button class="write_btn" onclick="location.href='/join/post/add'">글작성</button>
-        </div>
+        <tbody>
+          <tr th:each="post:${postList}">
+            <td><a href="post.html" th:href=@{|/join/post/${post.postNo}|} th:text="${post.postNo}"></a></td>
+            <td><a href="post.html" th:href=@{|/join/post/${post.postNo}|} th:text="${post.title}"></a>
+            </td>
+            <td th:text="${post.regiDate}"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bottom_btn">
+        <button class="write_btn" onclick="location.href='/join/post/add'">글작성</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
 </html>
