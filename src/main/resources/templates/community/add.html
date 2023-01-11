@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>contest</title>
+
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+        <li class="cm4"><a href="#">마이페이지</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <h2>게시글 생성</h2>
+      <form action="post.html" th:action th:object="${community}" method="post" required>
+        <div class="contest_form">
+          <label for="title">제목</label>
+          <input type="text" id="title" th:field="*{title}" placeholder="제목을 입력하세요" required>
+        </div>
+        <div class="contest_form">
+          <label for="category">카테고리</label>
+          <select th:field="*{category}">
+            <option value="">전체</option>
+            <option th:each="category : ${categories}" th:value="${category.code}"
+          		    th:text="${category.displayName}">전체</option>
+          </select>        
+        </div>
+        <div class="contest_form">
+          <label for="textbox">본문</label>
+          <textarea rows="10" cols="60" th:field="*{textbox}" placeholder="" required></textarea>
+        </div>
+        <div class="bottom-btn">
+          <button type="button" th:onclick="|location.href='@{/community}'|">취소</button>
+          <button type="submit">글작성</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</html>

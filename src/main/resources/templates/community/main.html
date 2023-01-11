@@ -10,7 +10,6 @@
           <li class="cm1"><a href="#">공모전</a></li>
           <li class="cm2"><a href="#">모집</a></li>
           <li class="cm3"><a href="#">커뮤니티</a></li>
-          <li class="cm4"><a href="#">마이페이지</a></li>
         </ul>
       </div>
 
@@ -27,6 +26,7 @@
             <tr>
               <th>번호</th>
               <th class="title">제목</th>
+              <th>작성일</th>
             </tr>
           </thead>
 
@@ -39,11 +39,12 @@
         			th:href=@{|/community/post/${post.postNo}|} 
         			th:text="${post.title}"></a>
         	</td>
+        	<td th:text="${post.regiDate}"></td>
         	</tr>
           </tbody>
         </table>
         <div class="bottom_btn">
-            <button class="write_btn" onclick="location.href='/contest/post/add'">글작성</button>
+            <button class="write_btn" onclick="location.href='/community/post/add'">글작성</button>
         </div>
       </div>
     </div>
