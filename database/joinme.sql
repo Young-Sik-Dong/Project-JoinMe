@@ -22,8 +22,6 @@ create table if not exists post(
 	post_no int not null auto_increment,
 	member_no int not null,
     post_name varchar(20) not null,
-    registration_date date default (current_date),
-    modify_date date default '9999-01-01',
 	
     primary key(post_no, member_no),
 	foreign key(member_no) references member(member_no)
@@ -42,6 +40,8 @@ create table if not exists contest(
     start_date date not null,
     end_date date not null,
     contest_link varchar(100),
+	registration_date date default (current_date),
+    modify_date date default '9999-01-01',
     
     primary key(contest_no, post_no),
     foreign key(post_no) references post(post_no)
@@ -57,6 +57,8 @@ create table if not exists recruitment(
     textbox varchar(600) not null,
     region varchar(30) not null,
     join_link char(100),
+	registration_date date default (current_date),
+    modify_date date default '9999-01-01',
     
     primary key(post_no),
     foreign key(post_no) references post(post_no)
@@ -70,6 +72,8 @@ create table if not exists community(
     title varchar(60) not null,
     textbox varchar(600) not null,
     category varchar(20) not null,
+	registration_date date default (current_date),
+    modify_date date default '9999-01-01',
     
     primary key(post_no),
     foreign key(post_no) references post(post_no)
