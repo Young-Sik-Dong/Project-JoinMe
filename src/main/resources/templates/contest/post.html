@@ -9,7 +9,6 @@
         <li class="cm1"><a href="/contest">공모전</a></li>
         <li class="cm2"><a href="/join">모집</a></li>
         <li class="cm3"><a href="/community">커뮤니티</a></li>
-        <li class="cm4"><a href="#">마이페이지</a></li>
       </ul>
     </div>
 
@@ -28,8 +27,7 @@
           <label for="field">분야</label>
           <select th:field="${contest.field}" disabled>
             <option value="">전체</option>
-            <option th:each="field : ${fields}" th:value="${field.code}"
-          		    th:text="${field.displayName}">전체</option>
+            <option th:each="field : ${fields}" th:value="${field.code}" th:text="${field.displayName}">전체</option>
           </select>
         </div>
         <div class="contest_form">
@@ -37,24 +35,23 @@
           <select th:field="${contest.targetName}" disabled>
             <option value="">전체</option>
             <option th:each="targetName : ${targetNames}" th:value="${targetName.code}"
-          		    th:text="${targetName.displayName}">전체</option>
-          </select>        
+              th:text="${targetName.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="host">주최</label>
           <select th:field="${contest.hostName}" disabled>
             <option value="">전체</option>
-            <option th:each="hostName : ${hostNames}" th:value="${hostName.code}"
-          		    th:text="${hostName.displayName}">전체</option>
-          </select>   
+            <option th:each="hostName : ${hostNames}" th:value="${hostName.code}" th:text="${hostName.displayName}">전체
+            </option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="reward">상금</label>
           <select th:field="${contest.reward}" disabled>
             <option value="">전체</option>
-            <option th:each="reward : ${rewards}" th:value="${reward.code}"
-          		    th:text="${reward.displayName}">전체</option>
-          </select>     
+            <option th:each="reward : ${rewards}" th:value="${reward.code}" th:text="${reward.displayName}">전체</option>
+          </select>
         </div>
         <div class="contest_form">
           <label for="date">기간</label>
@@ -69,9 +66,10 @@
         <div class="bottom_btn">
           <div class="contest_btn">
             <button class="back_btn" th:onclick="|location.href='@{/contest}'|">이전</button>
-            <button class="update_btn" th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
-            <form action="post.html" th:action method="post"> 
-            	<button type="submit" th:onclick="|location.href='@{/contest}'|">삭제</button>
+            <button class="update_btn"
+              th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
+            <form action="post.html" th:action method="post">
+              <button type="submit" th:onclick="|location.href='@{/contest}'|">삭제</button>
             </form>
           </div>
         </div>
@@ -79,4 +77,5 @@
     </div>
   </div>
 </section>
+
 </html>
