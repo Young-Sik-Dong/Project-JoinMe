@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>login</title>
+
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <h2>아이디/비밀번호 찾기</h2>
+      <div id="login_box">
+        <form action="login/main.html" th:action method="post">
+          <div class="pw_form">
+            <label for="memberId">아이디로 찾기</label>
+            <input type="password" id="memberId" placeholder="아이디를 입력하세요">
+          </div>
+          <button type="button" th:onclick="|location.href='@{/login}'|">취소</button>
+          <button type="submit">찾기</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</html>

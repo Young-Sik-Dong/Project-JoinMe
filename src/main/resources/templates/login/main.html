@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout::layout(~{::title}, ~{::section})}">
+<title>login</title>
+
+<section>
+  <div id="container">
+    <div id="side_menu">
+      <ul class="contest_menu">
+        <li class="cm1"><a href="/contest">공모전</a></li>
+        <li class="cm2"><a href="/join">모집</a></li>
+        <li class="cm3"><a href="/community">커뮤니티</a></li>
+      </ul>
+    </div>
+
+    <div id="contents">
+      <div id="joinme">
+        <h3>JoinMe</h3>
+        <p>공모전 팀원 모집 사이트</p>
+      </div>
+      <div id="box">
+        <div id="box-style">
+          <h3>공모전</h3>
+          <p>원하시는 공모전을 검색하세요!</p>
+          <div id="button">
+            <a href="/contest" class="btn">공모전 페이지로 이동</a>
+          </div>
+        </div>
+        <div id="box-style">
+          <h3>모집</h3>
+          <p>원하시는 팀원을 모집하세요!</p>
+          <div id="button">
+            <a href="/join" class="btn">모집 페이지로 이동</a>
+          </div>
+        </div>
+        <div id="box-style">
+          <h3>커뮤니티</h3>
+          <p>원하는 주제의 글을 써보세요!</p>
+          <div id="button">
+            <a href="/community" class="btn">커뮤니티 페이지로 이동</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</html>
