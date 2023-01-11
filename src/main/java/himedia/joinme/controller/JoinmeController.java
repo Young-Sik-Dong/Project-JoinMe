@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import himedia.joinme.domain.Category;
@@ -17,6 +18,7 @@ import himedia.joinme.domain.Contest;
 import himedia.joinme.domain.Field;
 import himedia.joinme.domain.HostName;
 import himedia.joinme.domain.Join;
+import himedia.joinme.domain.Member;
 import himedia.joinme.domain.Post;
 import himedia.joinme.domain.Region;
 import himedia.joinme.domain.Reward;
@@ -29,29 +31,29 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class JoinmeController {
-	
+
 	private final JoinmeService service;
-	
+
 	@GetMapping("/contest")
 	public String contest(Model model) {
 		List<Contest> contestList = service.findAllReverseContest();
 		model.addAttribute("postList", contestList);
 		return "contest/main";
 	}
-	
+
 	@GetMapping("/contest/post/add")
 	public String contestAddForm(Model model) {
 		model.addAttribute("contest", new Contest());
 		return "contest/add";
 	}
-	 
+
 	@PostMapping("/contest/post/add")
 	public String contestAdd(@ModelAttribute Contest contest, RedirectAttributes redirectAttributes) {
 		Contest savedContest = service.savedContest(1, contest);
 		redirectAttributes.addAttribute("postNo", savedContest.getPostNo());
 		return "redirect:/contest/post/{postNo}";
 	}
-	
+
 	@GetMapping("/contest/post/{postNo}")
 	public String contestAdd(@PathVariable int postNo, Model model) {
 		Post post = service.findPost(postNo);
@@ -60,7 +62,7 @@ public class JoinmeController {
 		model.addAttribute("contest", contest);
 		return "contest/post";
 	}
-	
+
 	@PostMapping("/contest/post/{postNo}")
 	public String contestDelete(@PathVariable int postNo) {
 		service.deleteContest(postNo);
@@ -73,32 +75,35 @@ public class JoinmeController {
 		model.addAttribute("contest", contest);
 		return "contest/modify";
 	}
-	
+
 	@PostMapping("/contest/post/{postNo}/modify")
 	public String contestModify(@ModelAttribute Contest contest, RedirectAttributes redirectAttributes) {
 		Contest updatedContest = service.updateContest(contest.getPostNo(), contest);
 		redirectAttributes.addAttribute("postNo", updatedContest.getPostNo());
 		return "redirect:/contest/post/{postNo}";
 	}
-	
+
 	@GetMapping("/join")
 	public String join(Model model) {
 		List<Join> join = service.findAllReverseJoin();
-	 	model.addAttribute("postList", join);
-	 	return "join/main";
+		model.addAttribute("postList", join);
+		return "join/main";
 	}
+
 	@GetMapping("/join/post/add")
 	public String joinAddForm(Model model) {
 		model.addAttribute("join", new Join());
 		return "join/add";
-		
+
 	}
+
 	@PostMapping("/join/post/add")
 	public String joinAdd(@ModelAttribute Join join, RedirectAttributes redirectAttributes) {
 		Join savedJoin = service.savedJoin(1, join);
 		redirectAttributes.addAttribute("postNo", savedJoin.getPostNo());
 		return "redirect:/join/post/{postNo}";
 	}
+
 	@GetMapping("/join/post/{postNo}")
 	public String joinAdd(@PathVariable int postNo, Model model) {
 		Post post = service.findPost(postNo);
@@ -107,6 +112,7 @@ public class JoinmeController {
 		model.addAttribute("join", join);
 		return "join/post";
 	}
+
 	@PostMapping("/join/post/{postNo}")
 	public String joinDelete(@PathVariable int postNo) {
 		service.deleteJoin(postNo);
@@ -119,32 +125,34 @@ public class JoinmeController {
 		model.addAttribute("join", join);
 		return "join/modify";
 	}
-	
+
 	@PostMapping("/join/post/{postNo}/modify")
 	public String joinModify(@ModelAttribute Join join, RedirectAttributes redirectAttributes) {
 		Join updatedJoin = service.updateJoin(join.getPostNo(), join);
 		redirectAttributes.addAttribute("postNo", updatedJoin.getPostNo());
 		return "redirect:/join/post/{postNo}";
 	}
-	
+
 	@GetMapping("/community")
 	public String community(Model model) {
 		List<Community> community = service.findAllReverseCommunity();
-	 	model.addAttribute("postList", community);
-	 	return "community/main";
+		model.addAttribute("postList", community);
+		return "community/main";
 	}
+
 	@GetMapping("/community/post/add")
 	public String communityAddForm(Model model) {
 		model.addAttribute("community", new Community());
 		return "community/add";
-		
 	}
+
 	@PostMapping("/community/post/add")
 	public String communityAdd(@ModelAttribute Community community, RedirectAttributes redirectAttributes) {
 		Community savedCommunity = service.savedCommunity(1, community);
 		redirectAttributes.addAttribute("postNo", savedCommunity.getPostNo());
 		return "redirect:/community/post/{postNo}";
 	}
+
 	@GetMapping("/community/post/{postNo}")
 	public String communityAdd(@PathVariable int postNo, Model model) {
 		Post post = service.findPost(postNo);
@@ -153,6 +161,7 @@ public class JoinmeController {
 		model.addAttribute("community", community);
 		return "community/post";
 	}
+
 	@PostMapping("/community/post/{postNo}")
 	public String communityDelete(@PathVariable int postNo) {
 		service.deleteCommunity(postNo);
@@ -165,7 +174,7 @@ public class JoinmeController {
 		model.addAttribute("community", community);
 		return "community/modify";
 	}
-	
+
 	@PostMapping("/community/post/{postNo}/modify")
 	public String communityModify(@ModelAttribute Community community, RedirectAttributes redirectAttributes) {
 		Community updatedCommunity = service.updateCommnity(community.getPostNo(), community);
@@ -173,9 +182,48 @@ public class JoinmeController {
 		return "redirect:/community/post/{postNo}";
 	}
 
+	@GetMapping("/login")
+	public String login(Model model) {
+		model.addAttribute("member", new Member());
+		return "login/sign_in";
+	}
 	
-//	@getMapping("/login")
+	@PostMapping("/login")
+	public String loginResult(@ModelAttribute Member member, RedirectAttributes redirectAttributes) {
+		if(service.login(member)) {
+			redirectAttributes.addAttribute("memberNo", member.getMemberNo());
+			return "redirect:/login/{memberNo}";
+		}
+		return "login";
+	}
+	@GetMapping("/login/{memberNo}")
+	public String JoinmeLogin(@PathVariable int memberNo) {
+		return "/login/main";
+	}
 	
+
+	@GetMapping("/login/find")
+	public String find() {
+		return "login/find";
+	}
+	@PostMapping("/login/find")
+	public String findResult(@RequestBody String memberId) {
+		service.findMemberId(memberId);
+		return "login/find";
+	}
+
+	@GetMapping("/login/registration")
+	public String registration(Model model) {
+		model.addAttribute("member", new Member());
+		return "login/sign_up";
+	}
+	
+	@PostMapping("/login/registration")
+	public String registrationAdd(@ModelAttribute Member member) {
+		service.savedMember(member);
+		return "redirect:/login/sign_in";
+	}
+
 	@ModelAttribute("fields")
 	public List<Field> field() {
 		List<Field> fields = new ArrayList<>();
@@ -198,6 +246,7 @@ public class JoinmeController {
 		fields.add(new Field("F017", "기타"));
 		return fields;
 	}
+
 	@ModelAttribute("targetNames")
 	public List<TargetName> targetName() {
 		List<TargetName> targetNames = new ArrayList<>();
@@ -209,6 +258,7 @@ public class JoinmeController {
 		targetNames.add(new TargetName("T006", "기타"));
 		return targetNames;
 	}
+
 	@ModelAttribute("hostNames")
 	public List<HostName> hostName() {
 		List<HostName> hostNames = new ArrayList<>();
@@ -223,7 +273,7 @@ public class JoinmeController {
 		hostNames.add(new HostName("H009", "기타"));
 		return hostNames;
 	}
-	
+
 	@ModelAttribute("rewards")
 	public List<Reward> Reward() {
 		List<Reward> rewards = new ArrayList<>();
@@ -238,7 +288,7 @@ public class JoinmeController {
 		rewards.add(new Reward("R009", "기타"));
 		return rewards;
 	}
-	
+
 	@ModelAttribute("regions")
 	public List<Region> Region() {
 		List<Region> regions = new ArrayList<>();
@@ -260,7 +310,7 @@ public class JoinmeController {
 		regions.add(new Region("R116", "기타"));
 		return regions;
 	}
-	
+
 	@ModelAttribute("categories")
 	public List<Category> Category() {
 		List<Category> categories = new ArrayList<>();
