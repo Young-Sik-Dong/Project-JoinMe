@@ -21,10 +21,6 @@ public class Post {
 	private String postName;
 	@Column (name = "member_no")
 	private int memberNo;
-	@Column (name = "registration_date")
-	private String regiDate;
-	@Column (name = "modify_date")
-	private String modifyDate;
 	
 	public Post(String postName, int memberNo) {
 		this.postName = postName;

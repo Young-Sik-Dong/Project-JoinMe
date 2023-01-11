@@ -23,9 +23,14 @@ public class Join {
 	private int contestNo;
 	private String title;
 	private String textbox;
+	@Column (name = "region")
 	private String region;
 	@Column (name = "join_link")
 	private String joinLink;
+	@Column (name = "registration_date")
+	private String regiDate;
+	@Column (name = "modify_date")
+	private String modifyDate;
 	
 	public Join(String title, String textbox, String region, String joinLink) {
 		this.title = title;

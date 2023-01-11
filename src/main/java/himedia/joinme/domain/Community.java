@@ -19,7 +19,12 @@ public class Community {
 	private int postNo;
 	private String title;
 	private String textbox;
+	@Column (name = "category")
 	private String category;
+	@Column (name = "registration_date")
+	private String regiDate;
+	@Column (name = "modify_date")
+	private String modifyDate;
 	
 	public Community(String title, String textbox, String category) {
 		this.title = title;

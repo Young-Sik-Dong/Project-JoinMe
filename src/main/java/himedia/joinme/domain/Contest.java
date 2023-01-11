@@ -39,6 +39,10 @@ public class Contest {
 	private String endDate;
 	@Column (name = "contest_link")
 	private String contestLink;
+	@Column (name = "registration_date")
+	private String regiDate;
+	@Column (name = "modify_date")
+	private String modifyDate;
 	
 	public Contest(String title, String companyName, String field, String targetName, String hostName, String reward,
 			String startDate, String endDate, String contestLink) {
