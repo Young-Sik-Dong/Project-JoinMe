@@ -103,6 +103,12 @@ public class JoinmeService {
 	public List<Community> findAllReverseCommunity() {
 		return Repository.findAllReverseCommunity();
 	}
+	public Optional<Member> findMemberId(String memberId) {
+		Optional<Member> findMember = Repository.findByMemberId(memberId);
+		if(findMember.isEmpty())
+			return null;
+		return findMember;
+	}
 	public Contest updateContest(int postNo, @ModelAttribute Contest contest) {
 		Repository.updateContest(postNo, contest);
 		return findContest(postNo);
@@ -123,6 +129,17 @@ public class JoinmeService {
 	}
 	public void deleteCommunity(int postNo) {
 		Repository.deleteCommunity(postNo);
+	}
+	public boolean login(Member member) {
+		Optional<Member> findMember = Repository.findByMemberId(member.getMemberId());
+		
+		if(findMember.isEmpty()) {
+			return false;
+		}
+		if(!findMember.get().getMemberPassword().equals(member.getMemberPassword())) {
+			return false;
+		}
+		return true;
 	}
 	
 }
