@@ -189,5 +189,4 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.remove(findByCommunity(postNo).get());
 		em.remove(findByPostNo(postNo).get());		
 	}
-
 }
