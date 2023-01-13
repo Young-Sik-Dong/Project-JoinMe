@@ -46,7 +46,6 @@ hr {
   display: block;
   clear: both;
 }
-
 #header .menu li {
   float: left;
   font-size: 24px;
@@ -61,7 +60,6 @@ hr {
   text-decoration: none;
   color: #FCD242;
 }
-
 #container::after {
   content: '';
   display: block;
@@ -178,15 +176,38 @@ hr {
   padding-top: 20px;
   padding-bottom: 10px;
 }
-
 #container #contents td a{
   text-decoration: none;
   font-size: 14px;
   color: #000;
 }
-#container #contents .bottom_btn .write_btn{
+#container #contents .bottom-btn {
+  padding-left: 10px;
+  display: inline;
+  float: right;
+}
+#container #contents .bottom {
+  border-top: solid 0.5px #ddd;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+#container #contents .bottom-btn{
+  padding-left: 10px;
+  display: inline;
+  float: right;
+}
+#container #contents #contest_main .bottom-btn{
+  padding-left: 10px;
+  display: inline;
+  float: right;
+}
+#container #contents form.btn_class {
+  display: inline;
+  float: right;
+}
+#container #contents .btn{
   padding: 10px 15px 10px 15px;
-  margin-left: 540px;
+  margin-left: 10px;
   background-color: #F89B1D;
   border-radius: 0.5em;
   border: solid 0.5px #F89B1D;
@@ -197,7 +218,7 @@ hr {
 }
 #container #contents #contest_main {
   width: 540px;
-  padding: 20px 0 20px 20px;
+  padding: 20px 20px 60px 20px;
   border: solid 0.5px #ddd;
   border-radius: 0.5em;
 }
@@ -213,12 +234,37 @@ hr {
   border: #fff;
   font-size: 14px;
 }
-#container #contents .bottom_btn .contest_btn {
-  margin-left: 380px;
+#container #contents #login_box {
+  width: 300px;
+  padding: 40px;
+  margin-left: 60px;
+  border: solid 0.5px #ddd;
 }
-#container #contests .update_btn .back_btn {
-  background-color: #F89B1D;
-  border-radius: 0.5em;
-  border: solid 0.5px #F89B1D;
-  color: #fff;
+#container #contents #login_box a {
+  text-decoration: none;
+  font-size: 12px;
+  color: #000;
+}
+#container #contents #login_box .login_bottom {
+  padding-top: 20px;
+  margin-left: 60px;
+}
+#container #contents #login_box .signin_btn {
+  margin-left: 100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#container #contents .pw_form {
+  display: inline;
+}
+#container #contents .login_form label {
+  display:inline-block;
+	text-align:center;
+	width:80px;
+  padding-bottom: 10px;
+}
+#container #contents .find_btn {
+  margin-left: 60px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
