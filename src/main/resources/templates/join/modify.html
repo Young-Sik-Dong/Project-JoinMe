@@ -35,12 +35,16 @@
           <input type="text" id="joinLink" th:field="*{joinLink}" required>
         </div>
         <div class="contest_form">
-          <label for="textbox"></label>
-          <textarea rows="10" cols="60" th:field="*{textbox}" required></textarea>
+          <div>
+            <label for="textbox">본문</label>
+          </div>
+          <textarea rows="10" cols="95" th:field="*{textbox}" required></textarea>
         </div>
         <div class="bottom-btn">
-          <button type="button" th:onclick="|location.href='@{/join}'|">취소</button>
-          <button type="submit">글수정</button>
+          <button class="btn" type="submit">글수정</button>
+        </div>
+        <div class="bottom-btn">
+          <button class="btn" type="button" th:onclick="|location.href='@{/join}'|">취소</button>
         </div>
       </form>
     </div>

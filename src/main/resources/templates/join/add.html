@@ -35,12 +35,14 @@
           <input type="text" id="joinLink" th:field="*{joinLink}" placeholder="오픈 카카오톡 링크를 입력하세요" required>
         </div>
         <div class="contest_form">
-          <label for="textbox"></label>
-          <textarea rows="10" cols="60" th:field="*{textbox}" placeholder="" required></textarea>
+          <div>
+            <label for="textbox">본문</label>
+          </div>
+          <textarea rows="10" cols="95" th:field="*{textbox}" placeholder="" required></textarea>
         </div>
         <div class="bottom-btn">
-          <button type="button" th:onclick="|location.href='@{/join}'|">취소</button>
-          <button type="submit">글작성</button>
+          <button class="btn" type="button" th:onclick="|location.href='@{/join}'|">취소</button>
+          <button class="btn" type="submit">글작성</button>
         </div>
       </form>
     </div>

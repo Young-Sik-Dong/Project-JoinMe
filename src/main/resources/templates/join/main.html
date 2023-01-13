@@ -30,16 +30,16 @@
         </thead>
 
         <tbody>
-          <tr th:each="post:${postList}">
-            <td><a href="post.html" th:href=@{|/join/post/${post.postNo}|} th:text="${post.postNo}"></a></td>
+          <tr th:each="post, i:${postList}">
+            <td><a href="post.html" th:href=@{|/join/post/${post.postNo}|} th:text="${i.count}"></a></td>
             <td><a href="post.html" th:href=@{|/join/post/${post.postNo}|} th:text="${post.title}"></a>
             </td>
             <td th:text="${post.regiDate}"></td>
           </tr>
         </tbody>
       </table>
-      <div class="bottom_btn">
-        <button class="write_btn" onclick="location.href='/join/post/add'">글작성</button>
+      <div class="bottom">
+        <button class="btn" onclick="location.href='/contest/post/add'">글작성</button>
       </div>
     </div>
   </div>
