@@ -63,15 +63,14 @@
           <label for="link">주소</label>
           <input type="text" id="link" name="link" value="주소" th:value=${contest.contestLink} disabled readonly>
         </div>
-        <div class="bottom_btn">
-          <div class="contest_btn">
-            <button class="back_btn" th:onclick="|location.href='@{/contest}'|">이전</button>
-            <button class="update_btn"
-              th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
-            <form action="post.html" th:action method="post">
-              <button type="submit" th:onclick="|location.href='@{/contest}'|">삭제</button>
-            </form>
-          </div>
+
+        <div class="bottom-btn">
+          <button class="btn"
+            th:onclick="|location.href='@{/contest/post/{postNo}/modify(postNo=${contest.postNo})}'|">수정</button>
+          <button class="btn" th:onclick="|location.href='@{/contest}'|">이전</button>
+          <form class="btn_class" action="post.html" th:action method="post">
+            <button class="btn" type="submit" th:onclick="|location.href='@{/contest}'|">삭제</button>
+          </form>
         </div>
       </div>
     </div>

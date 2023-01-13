@@ -14,7 +14,7 @@
 
     <div id="contents">
       <h2>공모전 추가</h2>
-      <form action="post.html" th:action th:object="${contest}" method="post" required>
+      <form action="post.html" th:action th:object="${contest}" method="post">
         <div class="contest_form">
           <label for="title">이름</label>
           <input type="text" id="title" th:field="*{title}" placeholder="공모전 제목을 입력하세요" required>
@@ -39,14 +39,6 @@
           </select>
         </div>
         <div class="contest_form">
-          <label for="hostName">주최</label>
-          <select th:field="*{hostName}">
-            <option value="">전체</option>
-            <option th:each="hostName : ${hostNames}" th:value="${hostName.code}" th:text="${hostName.displayName}">전체
-            </option>
-          </select>
-        </div>
-        <div class="contest_form">
           <label for="reward">상금</label>
           <select th:field="*{reward}">
             <option value="">전체</option>
@@ -66,8 +58,8 @@
           <input type="text" id="contestLink" th:field="*{contestLink}" placeholder="주소를 입력하세요" required>
         </div>
         <div class="bottom-btn">
-          <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
-          <button type="submit">글작성</button>
+          <button class="btn" type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
+          <button class="btn" type="submit">글작성</button>
         </div>
       </form>
     </div>

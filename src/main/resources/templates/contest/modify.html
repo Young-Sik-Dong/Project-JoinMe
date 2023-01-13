@@ -66,8 +66,10 @@
           <input type="text" id="contestLink" th:field="*{contestLink}">
         </div>
         <div class="bottom-btn">
-          <button type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
-          <button type="submit">글수정</button>
+          <button class="btn" type="submit">글수정</button>
+        </div>
+        <div class="bottom-btn">
+          <button class="btn" type="button" th:onclick="|location.href='@{/contest}'|">취소</button>
         </div>
       </form>
     </div>
