@@ -1,8 +1,10 @@
-	package himedia.joinme.service;
+package himedia.joinme.service;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -20,6 +22,30 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JoinmeService {
 	private final JPAJoinmeRepository Repository;
+	
+	public Contest savedContest(int memberNo, Contest contest) {
+		Post post = new Post("CONTEST", 1);
+		Repository.savePost(post);
+		contest.setPostNo(post.getPostNo());
+		contest.setContestNo(post.getPostNo());
+		return Repository.saveContest(contest);
+	}
+	public Contest findContest(int postNo) {
+		return Repository.findByContest(postNo).get();
+	}
+	public List<Contest> findAllContest() {
+		return Repository.findAllContest();
+	}
+	public List<Contest> findAllReverseContest() {
+		return Repository.findAllReverseContest();
+	}
+	public Contest updateContest(int postNo, Contest contest) {
+		Repository.updateContest(postNo, contest);
+		return findContest(postNo);
+	}
+	public void deleteContest(int postNo) {
+		Repository.deleteContest(postNo);
+	}
 	
 	public Member savedMember(Member member) {
 		Optional<Member> find = Repository.findByMemberId(member.getMemberId());
@@ -43,18 +69,6 @@ public class JoinmeService {
 	public Post savedPost(Post post) {
 		return Repository.savePost(post);
 	}
-
-	public Contest savedContest(int memberNo, Contest contest) {
-		Post post = new Post("CONTEST", 1);
-		Repository.savePost(post);
-		log.info("post = {}", post.getPostName());
-		log.info("post = {}", post.getMemberNo());
-		log.info("post = {}", post.getPostNo());
-		contest.setPostNo(post.getPostNo());
-		contest.setContestNo(post.getPostNo());
-		return Repository.saveContest(contest);
-	}
-	
 	public Join savedJoin(int memberNo, Join join) {
 		Post post = new Post("JOIN", memberNo);
 		Repository.savePost(post);
@@ -70,9 +84,7 @@ public class JoinmeService {
 	public Post findPost(int postNo) {
 		return Repository.findByPostNo(postNo).get();
 	}
-	public Contest findContest(int postNo) {
-		return Repository.findByContest(postNo).get();
-	}
+
 	public Join findJoin(int postNo) {
 		return Repository.findByJoin(postNo).get();
 	}
@@ -84,12 +96,6 @@ public class JoinmeService {
 	}
 	public List<Post> findReversePost(String postName) {
 		return Repository.findReversePostName(postName);
-	}
-	public List<Contest> findAllContest() {
-		return Repository.findAllContest();
-	}
-	public List<Contest> findAllReverseContest() {
-		return Repository.findAllReverseContest();
 	}
 	public List<Join> findAllJoin() {
 		return Repository.findAllJoin();
@@ -109,10 +115,7 @@ public class JoinmeService {
 			return null;
 		return findMember;
 	}
-	public Contest updateContest(int postNo, @ModelAttribute Contest contest) {
-		Repository.updateContest(postNo, contest);
-		return findContest(postNo);
-	}
+
 	public Join updateJoin(int postNo, @ModelAttribute Join join) {
 		Repository.updateJoin(postNo, join);
 		return findJoin(postNo);
@@ -120,9 +123,6 @@ public class JoinmeService {
 	public Community updateCommnity(int postNo, @ModelAttribute Community community) {
 		Repository.updateCommunity(postNo, community);
 		return findCommunity(postNo);
-	}
-	public void deleteContest(int postNo) {
-		Repository.deleteContest(postNo);
 	}
 	public void deleteJoin(int postNo) {
 		Repository.deleteJoin(postNo);
@@ -141,5 +141,4 @@ public class JoinmeService {
 		}
 		return true;
 	}
-	
 }
