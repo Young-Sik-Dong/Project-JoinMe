@@ -18,10 +18,12 @@
         <form action="login/main.html" th:action method="post">
           <div class="pw_form">
             <label for="memberId">아이디로 찾기</label>
-            <input type="password" id="memberId" placeholder="아이디를 입력하세요">
+            <input type="password" id="memberId" placeholder="아이디를 입력하세요" required>
           </div>
-          <button type="button" th:onclick="|location.href='@{/login}'|">취소</button>
-          <button type="submit">찾기</button>
+          <div class="find_btn">
+            <button class="btn" type="button" th:onclick="|location.href='@{/login}'|">취소</button>
+            <button class="btn" type="submit">찾기</button>
+          </div>
         </form>
       </div>
 
