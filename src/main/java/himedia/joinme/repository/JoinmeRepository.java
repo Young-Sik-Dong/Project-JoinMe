@@ -3,6 +3,9 @@ package himedia.joinme.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import himedia.joinme.domain.Community;
 import himedia.joinme.domain.Contest;
 import himedia.joinme.domain.Join;

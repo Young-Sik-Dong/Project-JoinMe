@@ -23,6 +23,39 @@ import lombok.extern.slf4j.Slf4j;
 public class JPAJoinmeRepository implements JoinmeRepository {
 	
 	private final EntityManager em;
+
+	@Override
+	public Contest saveContest(Contest contest) {
+		em.persist(contest);
+		return contest;
+	}
+	@Override
+	public Optional<Contest> findByContest(int postNo) {
+		Contest contest = em.find(Contest.class, postNo);
+		return Optional.ofNullable(contest);
+	}
+	@Override
+	public void updateContest(int postNo, Contest updateContest) {
+		Optional<Contest> contest = findByContest(postNo);
+		
+		if(contest.isEmpty())
+			return;
+		contest.get().update(updateContest);
+	}
+	@Override
+	public void deleteContest(int postNo) {
+		em.remove(findByContest(postNo).get());
+		em.remove(findByPostNo(postNo).get());
+	}
+	
+	@Override
+	public List<Contest> findAllContest() {
+		return em.createQuery("select c from Contest c", Contest.class).getResultList();
+	}
+	@Override
+	public List<Contest> findAllReverseContest() {
+		return em.createQuery("select c from Contest c order by c.postNo desc", Contest.class).getResultList();
+	}
 	
 	@Override
 	public Member saveMember(Member member) {
@@ -49,19 +82,42 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		em.persist(post);
 		return post;
 	}
-
-	@Override
-	public Contest saveContest(Contest contest) {
-		em.persist(contest);
-		return contest;
-	}
-
+	
 	@Override
 	public Join saveJoin(Join join) {
 		em.persist(join);
 		return join;
 	}
-
+	@Override
+	public Optional<Join> findByJoin(int postNo) {
+		Join join = em.find(Join.class, postNo);
+		return Optional.ofNullable(join);
+	}
+	@Override
+	public List<Join> findAllJoin() {
+		return em.createQuery("select j from Join j", Join.class).getResultList();
+	}
+	@Override
+	public List<Join> findAllReverseJoin() {
+		return em.createQuery("select j from Join j order by j.postNo desc", Join.class).getResultList();
+	}
+	@Override
+	public void updateJoin(int postNo, Join updateJoin) {
+		Optional<Join> join = findByJoin(postNo);
+		
+		if(join.isEmpty())
+			return;
+		
+		join.get().setTitle(updateJoin.getTitle());
+		join.get().setTextbox(updateJoin.getTextbox());
+		join.get().setRegion(updateJoin.getRegion());
+		join.get().setJoinLink(updateJoin.getJoinLink());
+	}
+	@Override
+	public void deleteJoin(int postNo) {
+		em.remove(findByJoin(postNo).get());
+		em.remove(findByPostNo(postNo).get());		
+	}
 	@Override
 	public Community saveCommunity(Community community) {
 		em.persist(community);
@@ -81,16 +137,6 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		return result.stream().findAny();
 	}
 	@Override
-	public Optional<Contest> findByContest(int postNo) {
-		Contest contest = em.find(Contest.class, postNo);
-		return Optional.ofNullable(contest);
-	}
-	@Override
-	public Optional<Join> findByJoin(int postNo) {
-		Join join = em.find(Join.class, postNo);
-		return Optional.ofNullable(join);
-	}
-	@Override
 	public Optional<Community> findByCommunity(int postNo) {
 		Community community = em.find(Community.class, postNo);
 		return Optional.ofNullable(community);
@@ -107,22 +153,7 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 				.setParameter("postName", postName)
 				.getResultList();
 	}
-	@Override
-	public List<Contest> findAllContest() {
-		return em.createQuery("select c from Contest c", Contest.class).getResultList();
-	}
-	@Override
-	public List<Contest> findAllReverseContest() {
-		return em.createQuery("select c from Contest c order by c.postNo desc", Contest.class).getResultList();
-	}
-	@Override
-	public List<Join> findAllJoin() {
-		return em.createQuery("select j from Join j", Join.class).getResultList();
-	}
-	@Override
-	public List<Join> findAllReverseJoin() {
-		return em.createQuery("select j from Join j order by j.postNo desc", Join.class).getResultList();
-	}
+
 	@Override
 	public List<Community> findAllCommunity() {
 		return em.createQuery("select c from Community c", Community.class).getResultList();
@@ -130,36 +161,6 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 	@Override
 	public List<Community> findAllReverseCommunity() {
 		return em.createQuery("select c from Community c order by c.postNo desc", Community.class).getResultList();
-	}
-	
-	@Override
-	public void updateContest(int postNo, Contest updateContest) {
-		Optional<Contest> contest = findByContest(postNo);
-		
-		if(contest.isEmpty())
-			return;
-		contest.get().setTitle(updateContest.getTitle());
-		contest.get().setCompanyName(updateContest.getCompanyName());
-		contest.get().setField(updateContest.getField());
-		contest.get().setTargetName(updateContest.getTargetName());
-		contest.get().setHostName(updateContest.getHostName());
-		contest.get().setReward(updateContest.getReward());
-		contest.get().setStartDate(updateContest.getStartDate());
-		contest.get().setEndDate(updateContest.getEndDate());
-		contest.get().setContestLink(updateContest.getContestLink());
-	}
-
-	@Override
-	public void updateJoin(int postNo, Join updateJoin) {
-		Optional<Join> join = findByJoin(postNo);
-		
-		if(join.isEmpty())
-			return;
-		
-		join.get().setTitle(updateJoin.getTitle());
-		join.get().setTextbox(updateJoin.getTextbox());
-		join.get().setRegion(updateJoin.getRegion());
-		join.get().setJoinLink(updateJoin.getJoinLink());
 	}
 
 	@Override
@@ -174,16 +175,6 @@ public class JPAJoinmeRepository implements JoinmeRepository {
 		community.get().setCategory(updateCommunity.getCategory());
 	}
 
-	@Override
-	public void deleteContest(int postNo) {
-		em.remove(findByContest(postNo).get());
-		em.remove(findByPostNo(postNo).get());
-	}
-	@Override
-	public void deleteJoin(int postNo) {
-		em.remove(findByJoin(postNo).get());
-		em.remove(findByPostNo(postNo).get());		
-	}
 	@Override
 	public void deleteCommunity(int postNo) {
 		em.remove(findByCommunity(postNo).get());
